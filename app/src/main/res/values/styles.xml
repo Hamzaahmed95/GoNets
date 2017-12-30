@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">#ffffff</item>
+        <item name="colorButtonNormal">@android:color/holo_red_dark</item>
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="android:colorBackgroundCacheHint">#2196F3</item>
+        <item name="colorControlActivated">#ffffff</item>
+        <item name="colorSwitchThumbNormal">#ffffff</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+
+    </style>
+    <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+
+
+    </style>
+    <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">#000</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">#000</item> <!-- activated color change as you wish -->
+        <item name="android:textColor">#FFFF3F3C</item> <!-- checkbox text color -->
+    </style>
+
+</resources>
