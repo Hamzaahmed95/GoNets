@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:id="@+id/picture"
+        android:layout_height="100dp"
+        android:src="@drawable/netpicture"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:id="@+id/name"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/black"
+            android:text="Rashid Latif Cricket Academy"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="10dp"
+            android:id="@+id/address"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:text="Outdoor 5-b/52 nazimabad"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="50dp"
+        android:id="@+id/linearlayout"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

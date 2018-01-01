@@ -1,6 +1,7 @@
 package khi.fast.gonets;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class GettingStartedActivity extends AppCompatActivity {
     Dialog dialog;
     TextView favouriteNetsName;
     ImageView icon;
-
+    ImageView tick;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -38,13 +39,20 @@ public class GettingStartedActivity extends AppCompatActivity {
         bat=(ImageView)findViewById(R.id.bat);
         favouriteNetsName=(TextView)findViewById(R.id.favouriteNetsName);
         icon=(ImageView)findViewById(R.id.icon);
-
+        tick=(ImageView) findViewById(R.id.tick);
+        tick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(GettingStartedActivity.this,NetSessionsActivity.class);
+                startActivity(i);
+            }
+        });
         wkeeper=(ImageView)findViewById(R.id.wkeeper);
         chooseNets=(TextView)findViewById(R.id.chooseNets);
         chooseNets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                //showDialog();
             }
         });
 
@@ -104,7 +112,7 @@ public class GettingStartedActivity extends AppCompatActivity {
 
 
     }
-    private void showDialog() {
+  /*  private void showDialog() {
         // custom dialog
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.item_favourite_nets);
@@ -129,5 +137,5 @@ public class GettingStartedActivity extends AppCompatActivity {
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-    }
+    }*/
 }

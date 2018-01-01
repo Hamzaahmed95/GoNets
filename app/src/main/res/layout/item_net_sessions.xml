@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="140dp"
+    android:padding="50dp"
+    android:layout_marginBottom="140dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:gravity="center|top"
+    android:background="@android:color/white"
+    android:id="@+id/rightLayoutMOM"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/TeacherName"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teacher: Anousha Ali"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="@android:color/black"
+        android:text="I'm First Annoucements!"
+        android:id="@+id/Annoucements"/>
+
+    <TextView
+        android:id="@+id/CourseName"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course: Mathematics"/>
+
+
+</LinearLayout>
