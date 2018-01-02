@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
     Spinner BestTeam;
     Spinner BestTeam2;
     LinearLayout chooseLocaion;
+    ImageView GroundImage;
+    TextView GroundName;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -47,6 +50,16 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_favourite_nets);
+        GroundImage=(ImageView)findViewById(R.id.GroundImage);
+        GroundName=(TextView)findViewById(R.id.GroundName);
+
+        Bundle extra = this.getIntent().getExtras();
+        if (extra != null) {
+            String Name = extra.getString("Name");
+            String Picture = extra.getString("Picture");
+            GroundImage.setImageResource(Integer.parseInt(Picture));
+            GroundName.setText(Name);
+        }
         selectDate = (ImageButton) findViewById(R.id.selectDate);
         Time = (TextView) findViewById(R.id.time);
         Date1 = (TextView) findViewById(R.id.date);

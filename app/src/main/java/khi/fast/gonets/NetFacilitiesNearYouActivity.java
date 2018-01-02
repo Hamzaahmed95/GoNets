@@ -74,8 +74,6 @@ public class NetFacilitiesNearYouActivity extends AppCompatActivity implements
                 R.layout.net_facilities_near_you, netFacilityClass);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
 
     @Override
@@ -87,12 +85,7 @@ public class NetFacilitiesNearYouActivity extends AppCompatActivity implements
                 Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
-        Intent i = new Intent(NetFacilitiesNearYouActivity.this,NetFacilitiesDetailsActivity.class);
-        i.putExtra("Name",netFacilityClass1.getName());
-        i.putExtra("PhoneNo",netFacilityClass1.getPhoneNo());
-        i.putExtra("Email",netFacilityClass1.getEmail());
-        i.putExtra("Details",netFacilityClass1.getDetails());
-        startActivity(i);
+        System.out.println("HI");
     }
 
     /**
