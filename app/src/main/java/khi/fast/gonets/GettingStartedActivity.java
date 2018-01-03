@@ -60,8 +60,8 @@ public class GettingStartedActivity extends AppCompatActivity {
         chooseNets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
-                // showDialog();
+
+                 showDialog();
             }
         });
 
@@ -121,16 +121,16 @@ public class GettingStartedActivity extends AppCompatActivity {
 
 
     }
-  /*  private void showDialog() {
+    private void showDialog() {
         // custom dialog
         dialog = new Dialog(this);
-        dialog.setContentView(R.layout.item_favourite_nets);
+        dialog.setContentView(R.layout.pop_up_favourite_net);
 
-        final EditText editQuery=(EditText)dialog.findViewById(R.id.editQuery);
+        final EditText editQuery=(EditText)dialog.findViewById(R.id.favouriteNet);
 
 
 
-        Button Close  =(Button) dialog.findViewById(R.id.ask);
+        Button Close  =(Button) dialog.findViewById(R.id.send);
         Close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,5 +146,5 @@ public class GettingStartedActivity extends AppCompatActivity {
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-    }*/
+    }
 }
