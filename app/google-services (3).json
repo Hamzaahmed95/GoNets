@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "743552329949",
+    "project_id": "gonets-190620"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743552329949:android:90415b9b28fffe39",
+        "android_client_info": {
+          "package_name": "khi.fast.gonets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743552329949-lvl3231fu9km37r60k9h9a888ufqpjql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "khi.fast.gonets",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "743552329949-5fq4dee929kta4pmf6a7fv9rgb3au07g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVcrN4e8TumWS4mb2MrCFgQvp0taelIvc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

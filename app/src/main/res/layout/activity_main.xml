@@ -40,18 +40,24 @@
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/button_facebook_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:id="@+id/google"
+                android:background="@drawable/circle2"
+                android:layout_width="60dp"
+                android:paddingTop="20dp"
+                android:paddingLeft="25dp"
                 android:layout_margin="10dp"
-                android:layout_height="50dp"
-                android:src="@drawable/google" />
+                android:paddingBottom="20dp"
+                android:layout_height="60dp"/>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:background="@drawable/circle3"
+                android:layout_width="60dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_margin="10dp"
+                android:paddingBottom="15dp"
+                android:layout_height="60dp"/>
 
         </LinearLayout>
     </LinearLayout>
