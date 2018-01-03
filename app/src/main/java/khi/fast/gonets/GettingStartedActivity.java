@@ -31,6 +31,7 @@ public class GettingStartedActivity extends AppCompatActivity {
     TextView favouriteNetsName;
     ImageView icon;
     ImageView tick;
+    TextView Name;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -40,6 +41,13 @@ public class GettingStartedActivity extends AppCompatActivity {
         favouriteNetsName=(TextView)findViewById(R.id.favouriteNetsName);
         icon=(ImageView)findViewById(R.id.icon);
         tick=(ImageView) findViewById(R.id.tick);
+        Name=(TextView)findViewById(R.id.Name);
+        Bundle extra = this.getIntent().getExtras();
+        if (extra != null) {
+            Name.setText(extra.getString("NAME"));
+
+        }
+
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +60,8 @@ public class GettingStartedActivity extends AppCompatActivity {
         chooseNets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showDialog();
+                //
+                // showDialog();
             }
         });
 

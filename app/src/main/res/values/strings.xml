@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GoNets</string>
+    <string name="facebook_app_id">172893026645108</string>
+    <string name="fb_login_protocol_scheme">fb172893026645108</string>
+
+
 </resources>

@@ -10,19 +10,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="40dp"
+            android:orientation="horizontal">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:gravity="center"
-        android:textSize="30dp"
+        android:textSize="22dp"
 
-        android:padding="40dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@android:color/black"
         android:layout_height="wrap_content"
-        android:text="Welcome, Hamza!"/>
+        android:text="Welcome, "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:id="@+id/Name"
 
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:text="Hamza!"/>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="left"
