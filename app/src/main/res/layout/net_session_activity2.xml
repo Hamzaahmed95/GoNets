@@ -7,14 +7,55 @@
     android:layout_height="match_parent"
     tools:showIn="@layout/net_sessions_activity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/main1"
+        android:layout_height="wrap_content">
+
+
+        <ListView
+            android:id="@+id/messageListView"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_above="@+id/li"
+            android:layout_alignParentTop="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/main1"
+        android:paddingTop="10dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/li">
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/view"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/black"
+            android:text="There are some other net sessions happing soon"/>
+    </LinearLayout>
+
     <ListView
-        android:id="@+id/messageListView"
+        android:id="@+id/messageListView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/li"
         android:layout_above="@+id/linearLayout"
-        android:stackFromBottom="true"
         android:divider="@android:color/transparent"
         android:transcriptMode="alwaysScroll"/>
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -30,20 +71,21 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="20dp"
+        android:fontFamily="sans-serif-condensed"
         android:paddingBottom="40dp"
         android:paddingRight="20dp"
         android:text="Create a new Net Session"/>
 
     <ImageButton
         android:id="@+id/UserTeam"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_gravity="right"
         android:layout_margin="10dp"
         android:background="@drawable/circle"
         android:src="@android:drawable/ic_input_add"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@android:color/white"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"/>
 
     </LinearLayout>
 </RelativeLayout>

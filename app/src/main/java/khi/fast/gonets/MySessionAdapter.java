@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +38,22 @@ import java.util.ArrayList;
  * Created by Hamza Ahmed on 14-Jul-17.
  */
 
-public class NetSessionsAdapter extends ArrayAdapter<NetSessionsClass>{
+public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
 
+    ArrayList al = new ArrayList();
+    Dialog dialog;
     private Context context;
-    public NetSessionsAdapter(Context context, int resource, List<NetSessionsClass> objects) {
+    int pos1;
+    private FirebaseDatabase mFirebaseDatabase;
+    ProgressBar mprogressBar;
+    MySessionClass message;
+    private int count=0;
+    MySessionClass message2;
+    public MySessionAdapter(Context context, int resource, List<MySessionClass> objects) {
         super(context, resource, objects);
         this.context=context;
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
     }
 
@@ -56,8 +64,16 @@ public class NetSessionsAdapter extends ArrayAdapter<NetSessionsClass>{
             convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_net_sessions, parent, false);
         }
 
-        return convertView;
+        ImageView Picture=(ImageView) convertView.findViewById(R.id.Picture);
+        TextView Name=(TextView)convertView.findViewById(R.id.Name);
+        TextView Time=(TextView)convertView.findViewById(R.id.Time);
+
+
+        MySessionClass message = getItem(position);
+        Picture.setImageResource(Integer.parseInt(message.getPicture()));
+        Name.setText(message.getName());
+        Time.setText(message.getTime());
+
+       return convertView;
     }
-
-
 }

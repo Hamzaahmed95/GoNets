@@ -39,28 +39,42 @@ public class NetSessionsActivity extends AppCompatActivity {
     ImageButton Add;
     private FirebaseDatabase mFirebaseDatabase;
 
-    private NetSessionsAdapter NetSessionsAdapter;
+    private MySessionAdapter MySessionAdapter;
     private DatabaseReference mMessageDatabaseReference;
 
     private ChildEventListener mChildEventListener;
 
     private ListView mmessageListViewMOM;
+    private ListView mmessageListViewMOM2;
     private FirebaseAuth mFirebaseAuth;
 
     private FirebaseAuth.AuthStateListener mAuthStateListner;
     private TextView textHide;
-
-    private ImageView closeButton;
+    private String Name;
+    private String Picture;
+    private String Time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.net_sessions_activity);
 
         mmessageListViewMOM = (ListView) findViewById(R.id.messageListView);
+        mmessageListViewMOM2 = (ListView) findViewById(R.id.messageListView2);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
        // textHide=(TextView)findViewById(R.id.textHide);
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("MySessions");
+        Bundle extra = this.getIntent().getExtras();
+        if (extra != null) {
+            Name = extra.getString("Name");
+            Picture = extra.getString("Picture");
+            Time=extra.getString("Time");
+            MySessionClass MySessionClass = new MySessionClass(Picture,Name,Time);
+
+            // Clear input box
+            mMessageDatabaseReference.push().setValue(MySessionClass);
+
+        }
 
         Add=(ImageButton) findViewById(R.id.UserTeam);
         Add.setOnClickListener(new View.OnClickListener() {
@@ -74,11 +88,13 @@ public class NetSessionsActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 onSignedInInitialize("");
-                final List<NetSessionsClass> momclasses = new ArrayList<>();
-                NetSessionsAdapter = new NetSessionsAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
-                System.out.println("here => "+NetSessionsAdapter);
+                final List<MySessionClass> momclasses = new ArrayList<>();
+                MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
+                System.out.println("here => "+MySessionAdapter);
                 if(mmessageListViewMOM!=null)
-                    mmessageListViewMOM.setAdapter(NetSessionsAdapter);
+                    mmessageListViewMOM.setAdapter(MySessionAdapter);
+                if(mmessageListViewMOM2!=null)
+                    mmessageListViewMOM2.setAdapter(MySessionAdapter);
 
 
            /*     if(user!=null){
@@ -107,11 +123,20 @@ public class NetSessionsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                System.out.println("hamza is this click?");
-                Toast.makeText(NetSessionsActivity.this, position, Toast.LENGTH_SHORT).show();
+             //   System.out.println("hamza is this click?");
+           //     Toast.makeText(NetSessionsActivity.this, position, Toast.LENGTH_SHORT).show();
             }
         });
-
+        mmessageListViewMOM2.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO Auto-generated method stub
+               // System.out.println("hamza is this click?");
+                //Toast.makeText(NetSessionsActivity.this, position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -122,7 +147,7 @@ public class NetSessionsActivity extends AppCompatActivity {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListner);
         }
         detachDatabaseReadListener();
-        NetSessionsAdapter.clear();
+        MySessionAdapter.clear();
     }
 
 
@@ -137,7 +162,7 @@ public class NetSessionsActivity extends AppCompatActivity {
 
     }
     private void  onSignedOutInitialize(){
-        NetSessionsAdapter.clear();
+        MySessionAdapter.clear();
 
         detachDatabaseReadListener();
     }
@@ -146,17 +171,17 @@ public class NetSessionsActivity extends AppCompatActivity {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    NetSessionsClass momclass = dataSnapshot.getValue(NetSessionsClass.class);
+                    MySessionClass momclass = dataSnapshot.getValue(MySessionClass.class);
                     if(momclass!=null)
 
                       //  textHide.setVisibility(View.GONE);
-                    NetSessionsAdapter.add(momclass);
+                    MySessionAdapter.add(momclass);
 
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    NetSessionsClass f =dataSnapshot.getValue(NetSessionsClass.class);
+                    MySessionClass f =dataSnapshot.getValue(MySessionClass.class);
 
                 }
 
@@ -231,9 +256,9 @@ public class NetSessionsActivity extends AppCompatActivity {
                 String Member2= member2.getText().toString();
 
                 // TODO: Send messages on click
-                NetSessionsClass NetSessionsClass = new NetSessionsClass(LeaderName,Member1,Member2,"0");
+                MySessionClass MySessionClass = new MySessionClass(LeaderName,Member1,Member2,"0");
                 // Clear input box
-                mMessageDatabaseReference.push().setValue(NetSessionsClass);
+                mMessageDatabaseReference.push().setValue(MySessionClass);
                 leaderName.setText("");
                 member1.setText("");
                 member2.setText("");

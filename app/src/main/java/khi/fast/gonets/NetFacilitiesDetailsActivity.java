@@ -1,7 +1,11 @@
 package khi.fast.gonets;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -15,6 +19,7 @@ public class NetFacilitiesDetailsActivity extends AppCompatActivity {
     TextView PhoneNo1;
     TextView Email1;
     TextView Details1;
+    ImageView backButtonMOM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,14 @@ public class NetFacilitiesDetailsActivity extends AppCompatActivity {
         PhoneNo1=(TextView)findViewById(R.id.phone);
         Email1=(TextView)findViewById(R.id.email);
         Details1=(TextView)findViewById(R.id.details);
+        backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
+        backButtonMOM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NetFacilitiesDetailsActivity.this,NetFacilitiesNearYouActivity.class);
+                startActivity(i);
+            }
+        });
 
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {

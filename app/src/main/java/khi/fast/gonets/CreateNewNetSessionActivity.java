@@ -37,9 +37,13 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
     static TextView Date1;
     Spinner BestTeam;
     Spinner BestTeam2;
-    LinearLayout chooseLocaion;
+    ImageButton chooseLocaion;
     ImageView GroundImage;
     TextView GroundName;
+    ImageView tick;
+    String Name;
+    String Picture;
+    ImageView backButtonMOM;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -52,18 +56,26 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         setContentView(R.layout.item_favourite_nets);
         GroundImage=(ImageView)findViewById(R.id.GroundImage);
         GroundName=(TextView)findViewById(R.id.GroundName);
-
+        tick=(ImageView)findViewById(R.id.tick);
+        backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
+        backButtonMOM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+                startActivity(i);
+            }
+        });
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {
-            String Name = extra.getString("Name");
-            String Picture = extra.getString("Picture");
+            Name = extra.getString("Name");
+            Picture = extra.getString("Picture");
             GroundImage.setImageResource(Integer.parseInt(Picture));
             GroundName.setText(Name);
         }
         selectDate = (ImageButton) findViewById(R.id.selectDate);
         Time = (TextView) findViewById(R.id.time);
         Date1 = (TextView) findViewById(R.id.date);
-        chooseLocaion=(LinearLayout)findViewById(R.id.chooseLocaion);
+        chooseLocaion=(ImageButton) findViewById(R.id.chooseLocaion);
         chooseLocaion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +95,22 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
 
         BestTeam2.setAdapter(adapter2);
         BestTeam2.setPrompt("select");
+
+        tick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("picture"+Picture);
+                System.out.println("picture"+Name);
+                System.out.println("Time"+Time.getText().toString());
+                Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+                i.putExtra("Picture",Picture);
+                i.putExtra("Name",Name);
+                i.putExtra("Time",Time.getText().toString());
+                startActivity(i);
+            }
+        });
+
+
 
 
     }

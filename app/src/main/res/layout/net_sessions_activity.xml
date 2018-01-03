@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center"
             android:text="GoNETS"/></LinearLayout>
     
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/TextName"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:textSize="30dp"
         android:layout_below="@id/linearLayout"
         android:fontFamily="sans-serif-condensed"
@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:paddingLeft="20dp"
+        android:paddingBottom="5dp"
         android:textSize="20dp"
         android:layout_below="@id/TextName"
         android:textColor="@android:color/black"
