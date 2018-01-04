@@ -51,7 +51,7 @@ public class NetSessionsActivity extends AppCompatActivity {
 
     private ListView mmessageListViewMOM;
     private ListView mmessageListViewMOM2;
-    private TextView textHide;
+    private TextView TextName;
     private String Name;
     private String Picture;
     private String Time;
@@ -64,17 +64,21 @@ public class NetSessionsActivity extends AppCompatActivity {
         mmessageListViewMOM2 = (ListView) findViewById(R.id.messageListView2);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-       // textHide=(TextView)findViewById(R.id.textHide);
+        TextName=(TextView)findViewById(R.id.TextName);
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("MySessions");
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {
-            Name = extra.getString("Name");
-            Picture = extra.getString("Picture");
-            Time=extra.getString("Time");
-            MySessionClass MySessionClass = new MySessionClass(Picture,Name,Time);
-
-            // Clear input box
-            mMessageDatabaseReference.push().setValue(MySessionClass);
+            if(extra.getString("Activity").equals("GettingStartedActivity")){
+                TextName.setText(extra.getString("Name"));
+            }
+            else {
+                Name = extra.getString("Name");
+                Picture = extra.getString("Picture");
+                Time = extra.getString("Time");
+                MySessionClass MySessionClass = new MySessionClass(Picture, Name, Time);
+                // Clear input box
+                mMessageDatabaseReference.push().setValue(MySessionClass);
+            }
 
         }
 

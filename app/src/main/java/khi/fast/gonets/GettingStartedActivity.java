@@ -169,13 +169,16 @@ public class GettingStartedActivity extends AppCompatActivity {
                     // Clear input box
                     mMessageDatabaseReference.push().setValue(UserProfile);
 
+                    Intent i = new Intent(GettingStartedActivity.this,NetSessionsActivity.class);
+                    i.putExtra("Name",Name.getText().toString());
+                    i.putExtra("Activity","GettingStartedActivity");
+                    startActivity(i);
+
                 }
 
 
 
 
-              /*  Intent i = new Intent(GettingStartedActivity.this,NetSessionsActivity.class);
-                startActivity(i);*/
             }
         });
         wkeeper = (ImageView) findViewById(R.id.wkeeper);
