@@ -68,6 +68,7 @@
                 android:textSize="20dp"
                 android:text="Choose a screen name"/>
         <EditText
+            android:id="@+id/ScreenName"
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
             android:singleLine="true"
@@ -239,7 +240,7 @@
 
 
         <CheckBox
-            android:id="@+id/checkBoxDeafult1"
+            android:id="@+id/checkboxDefault"
             android:layout_width="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/black"

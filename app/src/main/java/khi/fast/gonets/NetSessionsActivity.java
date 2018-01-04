@@ -37,18 +37,20 @@ import java.util.List;
 public class NetSessionsActivity extends AppCompatActivity {
     private Dialog dialog;
     ImageButton Add;
-    private FirebaseDatabase mFirebaseDatabase;
 
     private MySessionAdapter MySessionAdapter;
+    private FirebaseDatabase mFirebaseDatabase;
+
     private DatabaseReference mMessageDatabaseReference;
 
     private ChildEventListener mChildEventListener;
 
-    private ListView mmessageListViewMOM;
-    private ListView mmessageListViewMOM2;
     private FirebaseAuth mFirebaseAuth;
 
     private FirebaseAuth.AuthStateListener mAuthStateListner;
+
+    private ListView mmessageListViewMOM;
+    private ListView mmessageListViewMOM2;
     private TextView textHide;
     private String Name;
     private String Picture;
