@@ -74,6 +74,14 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         Name.setText(message.getName());
         Time.setText(message.getTime());
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(),NetSessionDetailActivity.class);
+                getContext().startActivity(i);
+            }
+        });
+
        return convertView;
     }
 }
