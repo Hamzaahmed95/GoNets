@@ -76,6 +76,7 @@ public class CustomListViewAdapter extends ArrayAdapter<NetFacilityClass> {
                 rowItem=getItem(position);
                 Intent i = new Intent(getContext(),CreateNewNetSessionActivity.class);
                 i.putExtra("Name",rowItem.getName());
+                i.putExtra("Activity","CustomeListViewAdapter");
                 i.putExtra("Picture",rowItem.getPictures());
                 getContext().startActivity(i);
             }

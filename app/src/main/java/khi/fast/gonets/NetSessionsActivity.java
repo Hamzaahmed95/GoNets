@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     ImageButton Add;
 
     private MySessionAdapter MySessionAdapter;
+    private MySessionAdapter MySessionAdapter2;
     private FirebaseDatabase mFirebaseDatabase;
 
     private DatabaseReference mMessageDatabaseReference;
@@ -55,6 +57,8 @@ public class NetSessionsActivity extends AppCompatActivity {
     private String Name;
     private String Picture;
     private String Time;
+    private String username;
+    private String Username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,41 +70,56 @@ public class NetSessionsActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         TextName=(TextView)findViewById(R.id.TextName);
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("MySessions");
-        Bundle extra = this.getIntent().getExtras();
-        if (extra != null) {
-            if(extra.getString("Activity").equals("GettingStartedActivity")){
-                TextName.setText(extra.getString("Name"));
-            }
-            else {
-                Name = extra.getString("Name");
-                Picture = extra.getString("Picture");
-                Time = extra.getString("Time");
-                MySessionClass MySessionClass = new MySessionClass(Picture, Name, Time);
-                // Clear input box
-                mMessageDatabaseReference.push().setValue(MySessionClass);
-            }
 
-        }
 
         Add=(ImageButton) findViewById(R.id.UserTeam);
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(NetSessionsActivity.this,CreateNewNetSessionActivity.class);
+                i.putExtra("Username",username);
+                i.putExtra("Activity","NetSessionsActivity");
                 startActivity(i);
             }
-        });mAuthStateListner = new FirebaseAuth.AuthStateListener() {
+        });
+
+        mAuthStateListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 onSignedInInitialize("");
+                if(user!=null) {
+                    Username = user.getDisplayName();
+                    Bundle extra = getIntent().getExtras();
+                    if (extra != null) {
+                        if(extra.getString("Activity").equals("GettingStartedActivity")){
+                            TextName.setText(extra.getString("Name"));
+                            username=extra.getString("Name");
+                        }
+                        else {
+                            Name = extra.getString("Name");
+                            Picture = extra.getString("Picture");
+                            Time = extra.getString("Time");
+                            //   username2=extra.getString("Username");
+                            System.out.println("what is this?"+Username);
+                            MySessionClass MySessionClass = new MySessionClass(Username,Picture, Name, Time);
+                            // Clear input box
+                            mMessageDatabaseReference.push().setValue(MySessionClass);
+                        }
+
+                    }
+                }
+                System.out.println("Username2: "+Username);
                 final List<MySessionClass> momclasses = new ArrayList<>();
+                final List<MySessionClass> momclasses2 = new ArrayList<>();
                 MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
+                MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2);
+
                 System.out.println("here => "+MySessionAdapter);
                 if(mmessageListViewMOM!=null)
                     mmessageListViewMOM.setAdapter(MySessionAdapter);
                 if(mmessageListViewMOM2!=null)
-                    mmessageListViewMOM2.setAdapter(MySessionAdapter);
+                    mmessageListViewMOM2.setAdapter(MySessionAdapter2);
 
 
            /*     if(user!=null){
@@ -154,6 +173,7 @@ public class NetSessionsActivity extends AppCompatActivity {
         }
         detachDatabaseReadListener();
         MySessionAdapter.clear();
+        MySessionAdapter2.clear();
     }
 
 
@@ -169,7 +189,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     }
     private void  onSignedOutInitialize(){
         MySessionAdapter.clear();
-
+        MySessionAdapter2.clear();
         detachDatabaseReadListener();
     }
     private void attachDatabaseReadListener(){
@@ -178,10 +198,18 @@ public class NetSessionsActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     MySessionClass momclass = dataSnapshot.getValue(MySessionClass.class);
-                    if(momclass!=null)
+                    if(momclass!=null){
+                        if(dataSnapshot.child("username").getValue().equals(Username)){
 
-                      //  textHide.setVisibility(View.GONE);
-                    MySessionAdapter.add(momclass);
+                            MySessionAdapter.add(momclass);
+                            System.out.println("HI");
+                        }
+                        else {
+                            MySessionAdapter2.add(momclass);
+                            System.out.println("Bye");
+                        }
+                    }
+
 
                 }
 

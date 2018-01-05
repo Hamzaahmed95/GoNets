@@ -48,6 +48,7 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+    private String username;
     private GoogleApiClient client;
 
     @Override
@@ -67,11 +68,17 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         });
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {
-            Name = extra.getString("Name");
-            Picture = extra.getString("Picture");
-            GroundImage.setImageResource(Integer.parseInt(Picture));
-            GroundName.setText(Name);
-        }
+            if(extra.getString("Activity").equals("CustomeListViewAdapter")) {
+                Name = extra.getString("Name");
+                Picture = extra.getString("Picture");
+                GroundImage.setImageResource(Integer.parseInt(Picture));
+                GroundName.setText(Name);
+            }
+            else{
+                username=extra.getString("Username");
+
+            }
+            }
         selectDate = (ImageButton) findViewById(R.id.selectDate);
         Time = (TextView) findViewById(R.id.time);
         Date1 = (TextView) findViewById(R.id.date);
@@ -103,8 +110,11 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
                 System.out.println("picture"+Name);
                 System.out.println("Time"+Time.getText().toString());
                 Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+
                 i.putExtra("Picture",Picture);
                 i.putExtra("Name",Name);
+                i.putExtra("Username",username);
+                i.putExtra("Activity","CreateNewNetSessionActivity");
                 i.putExtra("Time",Time.getText().toString());
                 startActivity(i);
             }
