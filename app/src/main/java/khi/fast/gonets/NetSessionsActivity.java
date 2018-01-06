@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -59,6 +63,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     private String Time;
     private String username;
     private String Username;
+    private ImageView logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,31 @@ public class NetSessionsActivity extends AppCompatActivity {
         mmessageListViewMOM2 = (ListView) findViewById(R.id.messageListView2);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        logout=(ImageView)findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(NetSessionsActivity.this, logout);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.game_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+
+
+                        AuthUI.getInstance().signOut(NetSessionsActivity.this);
+
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+            }
+
+
+        });
         TextName=(TextView)findViewById(R.id.TextName);
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("MySessions");
 
@@ -88,13 +118,19 @@ public class NetSessionsActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 onSignedInInitialize("");
+                System.out.println("user? "+user);
                 if(user!=null) {
                     Username = user.getDisplayName();
                     Bundle extra = getIntent().getExtras();
                     if (extra != null) {
+                        System.out.println("HERE =>");
                         if(extra.getString("Activity").equals("GettingStartedActivity")){
                             TextName.setText(extra.getString("Name"));
                             username=extra.getString("Name");
+                        }
+                        else if(extra.getString("Activity").equals("MainActivity")){
+                            username=extra.getString("NAME");
+                            System.out.println("Ghulam"+username);
                         }
                         else {
                             Name = extra.getString("Name");
@@ -108,38 +144,24 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
 
                     }
+                    System.out.println("Username2: "+Username);
+                    final List<MySessionClass> momclasses = new ArrayList<>();
+                    final List<MySessionClass> momclasses2 = new ArrayList<>();
+                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
+                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2);
+
+                    System.out.println("here => "+MySessionAdapter);
+                    if(mmessageListViewMOM!=null)
+                        mmessageListViewMOM.setAdapter(MySessionAdapter);
+                    if(mmessageListViewMOM2!=null)
+                        mmessageListViewMOM2.setAdapter(MySessionAdapter2);
+
+
                 }
-                System.out.println("Username2: "+Username);
-                final List<MySessionClass> momclasses = new ArrayList<>();
-                final List<MySessionClass> momclasses2 = new ArrayList<>();
-                MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
-                MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2);
-
-                System.out.println("here => "+MySessionAdapter);
-                if(mmessageListViewMOM!=null)
-                    mmessageListViewMOM.setAdapter(MySessionAdapter);
-                if(mmessageListViewMOM2!=null)
-                    mmessageListViewMOM2.setAdapter(MySessionAdapter2);
-
-
-           /*     if(user!=null){
-                    //user is signed in
-                }else{
-                    //user is signed out
-                  //  onSignedOutInitialize();
-                    /*startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setTheme(R.style.FirebaseLoginTheme)
-                                    .setLogo(R.drawable.wb5)
-                                    .setProviders(
-                                            AuthUI.EMAIL_PROVIDER,
-                                            AuthUI.GOOGLE_PROVIDER
-                                    ).build(),
-                            RC_SIGN_IN);
+                else{
+                    Intent i = new Intent(NetSessionsActivity.this,MainActivity.class);
+                    startActivity(i);
                 }
-                */
             };
         };
         mmessageListViewMOM.setOnItemClickListener(new AdapterView.OnItemClickListener()

@@ -63,6 +63,7 @@ public class GettingStartedActivity extends AppCompatActivity {
     int skillBat=-1;
     int skillwkeeper=-1;
     int checkEditText=0;
+    private String id;
     CheckBox checkboxDefault;
 
     @Override
@@ -87,6 +88,9 @@ public class GettingStartedActivity extends AppCompatActivity {
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {
             Name.setText(extra.getString("NAME"));
+           id=extra.getString("ID");
+            System.out.println(extra.getString("ID"));
+
 
         }
         ScreenName.addTextChangedListener(new TextWatcher() {
@@ -164,7 +168,7 @@ public class GettingStartedActivity extends AppCompatActivity {
 
 
                     System.out.println("Fav nets: " + favouriteNetsName.getText().toString());
-                    UserProfile UserProfile = new UserProfile(Name.getText().toString(), ScreenName.getText().toString(), skills, favouriteNetsName.getText().toString(),checkbox);
+                    UserProfile UserProfile = new UserProfile(id,Name.getText().toString(), ScreenName.getText().toString(), skills, favouriteNetsName.getText().toString(),checkbox);
 
                     // Clear input box
                     mMessageDatabaseReference.push().setValue(UserProfile);

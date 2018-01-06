@@ -8,13 +8,15 @@ import android.app.Notification;
 
 public class UserProfile {
 
+    private String Id;
     private String name;
     private String ScreenName;
     private String Skills;
     private String FavNets;
     private int EmailNotification;
 
-    public UserProfile(String name, String screenName, String skills, String favNets, int emailNotification) {
+    public UserProfile(String id, String name, String screenName, String skills, String favNets, int emailNotification) {
+        Id = id;
         this.name = name;
         ScreenName = screenName;
         Skills = skills;
@@ -23,6 +25,14 @@ public class UserProfile {
     }
 
     public UserProfile() {
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getName() {
@@ -64,7 +74,4 @@ public class UserProfile {
     public void setEmailNotification(int emailNotification) {
         EmailNotification = emailNotification;
     }
-
-
-
 }

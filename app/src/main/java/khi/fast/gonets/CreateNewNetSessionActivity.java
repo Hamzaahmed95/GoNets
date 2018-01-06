@@ -44,10 +44,6 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
     String Name;
     String Picture;
     ImageView backButtonMOM;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private String username;
     private GoogleApiClient client;
 
