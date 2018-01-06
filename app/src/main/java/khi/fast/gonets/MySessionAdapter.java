@@ -27,6 +27,8 @@ import java.util.List;
 
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,14 +48,28 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
     int pos1;
     private FirebaseDatabase mFirebaseDatabase;
     ProgressBar mprogressBar;
-    MySessionClass message;
     private int count=0;
     MySessionClass message2;
-    public MySessionAdapter(Context context, int resource, List<MySessionClass> objects) {
+    String Email;
+    int flagg;
+    String skillss;
+    MySessionClass message;
+    FirebaseUser user;
+    String username;
+
+    private FirebaseAuth mAuth;
+    public MySessionAdapter(Context context, int resource, List<MySessionClass> objects,String name1,int flag,String email) {
         super(context, resource, objects);
         this.context=context;
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        System.out.println("->"+email);
+        username=name1;
+        flagg=flag;
+        mAuth.getCurrentUser();
+        Email=email;
 
     }
 
@@ -69,7 +85,38 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         TextView Time=(TextView)convertView.findViewById(R.id.Time);
 
 
-        MySessionClass message = getItem(position);
+        Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("UserProfile");
+
+        mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int count1=0;
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        // do something with the individual "issues"
+                        if(issue.child("id").getValue().equals(Email)) {
+
+                            skillss=issue.child("skills").getValue().toString();
+                            System.out.println("SKILLS "+skillss);
+                        }
+
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+        message = getItem(position);
         Picture.setImageResource(Integer.parseInt(message.getPicture()));
         Name.setText(message.getName());
         Time.setText(message.getTime());
@@ -77,8 +124,15 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(),NetSessionDetailActivity.class);
-                getContext().startActivity(i);
+                if(flagg==1) {
+                    message = getItem(position);
+                    Intent i = new Intent(getContext(), NetSessionDetailActivity.class);
+                    i.putExtra("Name", message.getName());
+                    i.putExtra("Time", message.getTime());
+                    i.putExtra("Username", username);
+                    i.putExtra("Skills",skillss);
+                    getContext().startActivity(i);
+                }
             }
         });
 

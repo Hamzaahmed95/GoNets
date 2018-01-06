@@ -64,6 +64,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     private String username;
     private String Username;
     private ImageView logout;
+    private String skills;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +122,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                 System.out.println("user? "+user);
                 if(user!=null) {
                     Username = user.getDisplayName();
-                    Bundle extra = getIntent().getExtras();
+                    final Bundle extra = getIntent().getExtras();
                     if (extra != null) {
                         System.out.println("HERE =>");
                         if(extra.getString("Activity").equals("GettingStartedActivity")){
@@ -130,6 +131,21 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
                         else if(extra.getString("Activity").equals("MainActivity")){
                             username=extra.getString("NAME");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             System.out.println("Ghulam"+username);
                         }
                         else {
@@ -144,11 +160,11 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
 
                     }
-                    System.out.println("Username2: "+Username);
+                    System.out.println("skills2: "+skills);
                     final List<MySessionClass> momclasses = new ArrayList<>();
                     final List<MySessionClass> momclasses2 = new ArrayList<>();
-                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses);
-                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2);
+                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses,Username,1,user.getEmail());
+                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2,Username,2,user.getEmail());
 
                     System.out.println("here => "+MySessionAdapter);
                     if(mmessageListViewMOM!=null)

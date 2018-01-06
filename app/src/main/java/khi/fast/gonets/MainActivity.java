@@ -429,6 +429,7 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser!=null){
             Intent i = new Intent(MainActivity.this,NetSessionsActivity.class);
             i.putExtra("NAME", currentUser.getDisplayName());
+            i.putExtra("ID", currentUser.getEmail());
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("Activity","MainActivity");
             startActivity(i);
@@ -447,6 +448,7 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("NAME", currentUser.getDisplayName());
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("Activity","MainActivity");
+            i.putExtra("ID", currentUser.getEmail());
             startActivity(i);
 
             finish();
@@ -551,7 +553,6 @@ public class MainActivity extends AppCompatActivity {
                          //   updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
