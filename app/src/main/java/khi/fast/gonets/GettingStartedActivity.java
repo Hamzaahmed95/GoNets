@@ -125,6 +125,7 @@ public class GettingStartedActivity extends AppCompatActivity {
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("yayyy!!!"+favouriteNetsName.getText());
 
                 if ((skillBall == -1 && skillBat == -1 && skillwkeeper == 1) || (checkEditText == 0) || favouriteNetsName.getText().toString().equals("")) {
                     if (checkEditText == 0) {

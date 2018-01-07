@@ -65,7 +65,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        System.out.println("->"+email);
+        System.out.println("->Email"+email);
         username=name1;
         flagg=flag;
         mAuth.getCurrentUser();
@@ -117,7 +117,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
 
 
         message = getItem(position);
-        Picture.setImageResource(Integer.parseInt(message.getPicture()));
+//        Picture.setImageResource(Integer.parseInt(message.getPicture()));
         Name.setText(message.getName());
         Time.setText(message.getTime());
 

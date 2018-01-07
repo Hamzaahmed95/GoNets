@@ -64,6 +64,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     private String username;
     private String Username;
     private ImageView logout;
+    private String emailFacebook;
     private String skills;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +118,11 @@ public class NetSessionsActivity extends AppCompatActivity {
         mAuthStateListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 onSignedInInitialize("");
                 System.out.println("user? "+user);
+//                System.out.println("user? "+user.getDisplayName());
+  //              System.out.println("user? "+user.getEmail());
                 if(user!=null) {
                     Username = user.getDisplayName();
                     final Bundle extra = getIntent().getExtras();
@@ -131,7 +134,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
                         else if(extra.getString("Activity").equals("MainActivity")){
                             username=extra.getString("NAME");
-
+                            TextName.setText(extra.getString("NAME"));
 
 
 
@@ -148,7 +151,7 @@ public class NetSessionsActivity extends AppCompatActivity {
 
                             System.out.println("Ghulam"+username);
                         }
-                        else {
+                        else if (extra.getString("Activity").equals("CreateNewNetSessionActivity")){
                             Name = extra.getString("Name");
                             Picture = extra.getString("Picture");
                             Time = extra.getString("Time");
@@ -160,11 +163,26 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
 
                     }
-                    System.out.println("skills2: "+skills);
+                    Bundle extra1 = getIntent().getExtras();
+                    if (extra1 != null) {
+                        if(extra1.getString("Activity").equals("MainActivityFacebook")){
+                            emailFacebook=extra1.getString("ID");
+                            username=extra.getString("NAME");
+                            TextName.setText(extra.getString("NAME"));
+                        }
+                        else if(extra1.getString("Activity").equals("MainActivityGoogle")){
+                            emailFacebook=user.getEmail();
+                        }
+
+                    }
+
+                        System.out.println("user.getEmail(): "+user.getEmail());
                     final List<MySessionClass> momclasses = new ArrayList<>();
                     final List<MySessionClass> momclasses2 = new ArrayList<>();
-                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses,Username,1,user.getEmail());
-                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2,Username,2,user.getEmail());
+
+                    System.out.println("AND NOW? "+emailFacebook);
+                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses,Username,1,emailFacebook);
+                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2,Username,2,emailFacebook);
 
                     System.out.println("here => "+MySessionAdapter);
                     if(mmessageListViewMOM!=null)

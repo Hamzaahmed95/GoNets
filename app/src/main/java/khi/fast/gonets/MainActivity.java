@@ -1,5 +1,6 @@
 package khi.fast.gonets;
 import android.content.Intent;
+import android.hardware.camera2.params.Face;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
 
+    String email1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+
                         // App code
                     }
 
@@ -166,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.i("LoginActivity", response.toString());
+                        
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(object);
                         final String email=bFacebookData.getString("email");
@@ -298,9 +303,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Bundle getFacebookData(JSONObject object) {
 
+
         try {
             Bundle bundle = new Bundle();
             String id = object.getString("id");
+
+
 
             try {
                 URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
@@ -312,13 +320,17 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
 
+
+            System.out.println("Im here now"+object.has("first_name"));
             bundle.putString("idFacebook", id);
             if (object.has("first_name"))
                 bundle.putString("first_name", object.getString("first_name"));
             if (object.has("last_name"))
                 bundle.putString("last_name", object.getString("last_name"));
-            if (object.has("email"))
+            if (object.has("email")) {
                 bundle.putString("email", object.getString("email"));
+
+            }
             if (object.has("gender"))
                 bundle.putString("gender", object.getString("gender"));
             if (object.has("birthday"))
@@ -424,16 +436,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
-            Intent i = new Intent(MainActivity.this,NetSessionsActivity.class);
-            i.putExtra("NAME", currentUser.getDisplayName());
-            i.putExtra("ID", currentUser.getEmail());
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("Activity","MainActivity");
-            startActivity(i);
-            finish();
+
+
+            AccessToken accessToken=AccessToken.getCurrentAccessToken();
+        GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject object,
+                            GraphResponse response) {
+
+                        System.out.println("Hamza onStart");
+                        Bundle bFacebookData = getFacebookData(object);
+                        email1=bFacebookData.getString("email");
+                     //   System.out.println("Hamza"+bFacebookData.getString("email"));
+                        Intent i = new Intent(MainActivity.this,NetSessionsActivity.class);
+                        i.putExtra("NAME", currentUser.getDisplayName());
+                        System.out.println("=>Hamza"+currentUser.getEmail());
+                        System.out.println("email ID: "+email1);
+                        i.putExtra("ID", email1);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.putExtra("Activity","MainActivityFacebook");
+                        startActivity(i);
+                        finish();
+                        // Application code
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+
+        request.setParameters(parameters);
+        request.executeAsync();
+
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+
         }
 
      //   updateUI(currentUser);
@@ -478,15 +518,20 @@ public class MainActivity extends AppCompatActivity {
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     System.out.println("ID" + email);
                                     i.putExtra("ID", email);
+
                                     startActivity(i);
                                     finish();
                                 }
                                 else{
                                     Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
                                     i.putExtra("NAME", user.getDisplayName());
-                                    i.putExtra("Activity","MainActivity");
+
+                                    System.out.println("Hamza handleFacebookAccessToken");
+                                    System.out.println("USERRRRRRRRRR"+user.getEmail());
+                                    i.putExtra("Activity","MainActivityFacebook");
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     System.out.println("ID" + email);
+                                    i.putExtra("ID", email);
                                     startActivity(i);
                                     finish();
                                 }
@@ -539,8 +584,9 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
                                 i.putExtra("NAME", user.getDisplayName());
-                                i.putExtra("Activity","MainActivity");
+                                i.putExtra("Activity","MainActivityGoogle");
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                System.out.println("USERRRRRRRRRR"+user.getDisplayName());
                                 System.out.println("ID" + user.getEmail());
                                 startActivity(i);
                                 finish();
