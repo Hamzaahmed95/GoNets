@@ -246,6 +246,12 @@ public class NetSessionsActivity extends AppCompatActivity {
                             mmessageListViewMOM2.setVisibility(View.GONE);
                             main1.setVisibility(View.GONE);
                         }
+                        else if (extra.getString("Activity").equals("CreateNewNetSessionActivity1")){
+                             emailFacebook=extra.getString("ID");
+                              }
+                        else if (extra.getString("Activity").equals("NetSessionDetailActivity")){
+                            emailFacebook=extra.getString("ID");
+                        }
 
                     }
 

@@ -136,6 +136,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                     i.putExtra("Time", message.getTime());
                     i.putExtra("Username", username);
                     i.putExtra("Skills",skillss);
+                    i.putExtra("Id",Email);
                     getContext().startActivity(i);
                 }
             }

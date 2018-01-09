@@ -44,6 +44,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
     private ChildEventListener mChildEventListener;
 
     private FirebaseAuth mAuth;
+    private String id1;
     private FirebaseAuth.AuthStateListener mAuthStateListner;
 
     @Override
@@ -55,6 +56,8 @@ public class NetSessionDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(NetSessionDetailActivity.this, NetSessionsActivity.class);
+                i.putExtra("Activity","NetSessionDetailActivity");
+                i.putExtra("ID",id1);
                 startActivity(i);
             }
         });
@@ -110,6 +113,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                 TextName.setText(extra.getString("Name"));
                 Time.setText(extra.getString("Time"));
                 Name.setText(extra.getString("Username"));
+                id1=extra.getString("Id");
             if(extra.getString("Skills").equals("Baller Batsman and Wicket Keeper")){
                 ball.setVisibility(View.VISIBLE);
                 bat.setVisibility(View.VISIBLE);

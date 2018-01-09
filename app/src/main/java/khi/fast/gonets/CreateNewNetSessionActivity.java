@@ -55,14 +55,7 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         GroundImage=(ImageView)findViewById(R.id.GroundImage);
         GroundName=(TextView)findViewById(R.id.GroundName);
         tick=(ImageView)findViewById(R.id.tick);
-        backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
-        backButtonMOM.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
-                startActivity(i);
-            }
-        });
+
         Bundle extra = this.getIntent().getExtras();
         if (extra != null) {
             if(extra.getString("Activity").equals("CustomeListViewAdapter")) {
@@ -118,6 +111,22 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
 
                 System.out.println("HERER???? "+id1);
                 i.putExtra("Activity","CreateNewNetSessionActivity");
+                i.putExtra("ID",id1);
+                i.putExtra("Time",Time.getText().toString());
+                startActivity(i);
+            }
+        });
+        backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
+        backButtonMOM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+                i.putExtra("Picture",Picture);
+                i.putExtra("Name",Name);
+                i.putExtra("Username",username);
+
+                System.out.println("HERER???? "+id1);
+                i.putExtra("Activity","CreateNewNetSessionActivity1");
                 i.putExtra("ID",id1);
                 i.putExtra("Time",Time.getText().toString());
                 startActivity(i);
