@@ -27,7 +27,8 @@
             android:id="@+id/Name"
             android:text="National Cricket Academy"
             android:textSize="20dp"
-            android:textColor="@android:color/black"/>
+            android:textStyle="bold"
+            android:textColor="#4F8295"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -89,7 +89,7 @@ public class GettingStartedActivity extends AppCompatActivity {
         if (extra != null) {
             Name.setText(extra.getString("NAME"));
            id=extra.getString("ID");
-            System.out.println(extra.getString("ID"));
+            System.out.println("Bhejna"+extra.getString("ID"));
 
 
         }
@@ -126,8 +126,8 @@ public class GettingStartedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("yayyy!!!"+favouriteNetsName.getText());
-
-                if ((skillBall == -1 && skillBat == -1 && skillwkeeper == 1) || (checkEditText == 0) || favouriteNetsName.getText().toString().equals("")) {
+                System.out.println("PROF"+skillBall+" "+skillBat+" "+skillwkeeper);
+                if ((skillBall == -1 && skillBat == -1 && skillwkeeper == -1) || (checkEditText == 0) || favouriteNetsName.getText().toString().equals("")) {
                     if (checkEditText == 0) {
                         Toast.makeText(GettingStartedActivity.this, "Please choose your name!", Toast.LENGTH_SHORT).show();
 
@@ -176,6 +176,7 @@ public class GettingStartedActivity extends AppCompatActivity {
 
                     Intent i = new Intent(GettingStartedActivity.this,NetSessionsActivity.class);
                     i.putExtra("Name",Name.getText().toString());
+                    i.putExtra("ID",id);
                     i.putExtra("Activity","GettingStartedActivity");
                     startActivity(i);
 

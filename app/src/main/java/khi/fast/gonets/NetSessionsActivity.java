@@ -1,11 +1,15 @@
 package khi.fast.gonets;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -17,7 +21,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,15 +53,18 @@ public class NetSessionsActivity extends AppCompatActivity {
     private MySessionAdapter MySessionAdapter;
     private MySessionAdapter MySessionAdapter2;
     private FirebaseDatabase mFirebaseDatabase;
-
+    private LinearLayout main1;
+    private LinearLayout li;
+    private RelativeLayout  linearLayout;
     private DatabaseReference mMessageDatabaseReference;
 
     private ChildEventListener mChildEventListener;
 
+    private String id1;
     private FirebaseAuth mFirebaseAuth;
 
     private FirebaseAuth.AuthStateListener mAuthStateListner;
-
+    private ProgressBar progressBar2;
     private ListView mmessageListViewMOM;
     private ListView mmessageListViewMOM2;
     private TextView TextName;
@@ -65,14 +75,22 @@ public class NetSessionsActivity extends AppCompatActivity {
     private String Username;
     private ImageView logout;
     private String emailFacebook;
+    private LinearLayout hideLayout2;
+    private LinearLayout reload;
     private String skills;
+    private RelativeLayout HideLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.net_sessions_activity);
-
+        hideLayout2=(LinearLayout)findViewById(R.id.hideLayout2);
         mmessageListViewMOM = (ListView) findViewById(R.id.messageListView);
         mmessageListViewMOM2 = (ListView) findViewById(R.id.messageListView2);
+        linearLayout=(RelativeLayout)findViewById(R.id. linearLayout12);
+        main1=(LinearLayout)findViewById(R.id.main1);
+        li=(LinearLayout)findViewById(R.id.li);
+        progressBar2=(ProgressBar)findViewById(R.id.progressBar2);
+        reload=(LinearLayout) findViewById(R.id.reload);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         logout=(ImageView)findViewById(R.id.logout);
@@ -100,9 +118,49 @@ public class NetSessionsActivity extends AppCompatActivity {
 
 
         });
+        if(isNetworkAvailable()){
+
+            hideLayout2.setVisibility(View.GONE);
+        }
+        else {
+
+            hideLayout2.setVisibility(View.VISIBLE);
+        }
         TextName=(TextView)findViewById(R.id.TextName);
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("MySessions");
 
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload.setVisibility(View.GONE);
+                progressBar2.setVisibility(View.VISIBLE);
+                if(isNetworkAvailable()){
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            //findViewById(R.id.layout1).setVisibility(View.GONE);
+
+                            Intent i = new Intent(NetSessionsActivity.this,NetSessionsActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            progressBar2.setVisibility(View.GONE);
+                        }
+                    }, 300);
+
+                }
+                else{
+                    Toast.makeText(NetSessionsActivity.this,"Check Your Internet Connection",Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            //findViewById(R.id.layout1).setVisibility(View.GONE);
+                            //  p.setVisibility(View.INVISIBLE);
+                            progressBar2.setVisibility(View.GONE);
+                            reload.setVisibility(View.VISIBLE);
+                        }
+                    }, 500);
+                }
+
+            }
+        });
 
         Add=(ImageButton) findViewById(R.id.UserTeam);
         Add.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +169,8 @@ public class NetSessionsActivity extends AppCompatActivity {
                 Intent i = new Intent(NetSessionsActivity.this,CreateNewNetSessionActivity.class);
                 i.putExtra("Username",username);
                 i.putExtra("Activity","NetSessionsActivity");
+                System.out.println("emailFacebook"+emailFacebook);
+                i.putExtra("ID",emailFacebook);
                 startActivity(i);
             }
         });
@@ -129,12 +189,13 @@ public class NetSessionsActivity extends AppCompatActivity {
                     if (extra != null) {
                         System.out.println("HERE =>");
                         if(extra.getString("Activity").equals("GettingStartedActivity")){
-                            TextName.setText(extra.getString("Name"));
+                            TextName.setText("Hello, "+extra.getString("Name"));
                             username=extra.getString("Name");
+                            emailFacebook=extra.getString("ID");
                         }
                         else if(extra.getString("Activity").equals("MainActivity")){
                             username=extra.getString("NAME");
-                            TextName.setText(extra.getString("NAME"));
+                            TextName.setText("Hello, "+extra.getString("NAME"));
 
 
 
@@ -155,9 +216,13 @@ public class NetSessionsActivity extends AppCompatActivity {
                             Name = extra.getString("Name");
                             Picture = extra.getString("Picture");
                             Time = extra.getString("Time");
+                            System.out.println("HI");
+                            id1=extra.getString("ID");
+                            System.out.println("wtf"+extra.getString("ID"));
                             //   username2=extra.getString("Username");
                             System.out.println("what is this?"+Username);
-                            MySessionClass MySessionClass = new MySessionClass(Username,Picture, Name, Time);
+                            System.out.println("id?"+id1);
+                            MySessionClass MySessionClass = new MySessionClass(id1,Username,Picture, Name, Time);
                             // Clear input box
                             mMessageDatabaseReference.push().setValue(MySessionClass);
                         }
@@ -168,10 +233,18 @@ public class NetSessionsActivity extends AppCompatActivity {
                         if(extra1.getString("Activity").equals("MainActivityFacebook")){
                             emailFacebook=extra1.getString("ID");
                             username=extra.getString("NAME");
-                            TextName.setText(extra.getString("NAME"));
+                            System.out.println("Harmain pagal nahi hai Harmain kutta hai");
+                            TextName.setText("Hello, "+extra.getString("NAME"));
                         }
                         else if(extra1.getString("Activity").equals("MainActivityGoogle")){
                             emailFacebook=user.getEmail();
+                        }
+                        else if(extra1.getString("Activity").equals("NetworkError")){
+                            linearLayout.setVisibility(View.GONE);
+                            li.setVisibility(View.GONE);
+                            System.out.println("Harmain pagal hai");
+                            mmessageListViewMOM2.setVisibility(View.GONE);
+                            main1.setVisibility(View.GONE);
                         }
 
                     }
@@ -380,4 +453,12 @@ public class NetSessionsActivity extends AppCompatActivity {
         dialog.show();
     }
 */
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }

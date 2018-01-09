@@ -1,6 +1,9 @@
 package khi.fast.gonets;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.camera2.params.Face;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -436,47 +439,57 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){
+        if(isNetworkAvailable()) {
+            final FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
 
 
-            AccessToken accessToken=AccessToken.getCurrentAccessToken();
-        GraphRequest request = GraphRequest.newMeRequest(
-                accessToken,
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(
-                            JSONObject object,
-                            GraphResponse response) {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                GraphRequest request = GraphRequest.newMeRequest(
+                        accessToken,
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
 
-                        System.out.println("Hamza onStart");
-                        Bundle bFacebookData = getFacebookData(object);
-                        email1=bFacebookData.getString("email");
-                     //   System.out.println("Hamza"+bFacebookData.getString("email"));
-                        Intent i = new Intent(MainActivity.this,NetSessionsActivity.class);
-                        i.putExtra("NAME", currentUser.getDisplayName());
-                        System.out.println("=>Hamza"+currentUser.getEmail());
-                        System.out.println("email ID: "+email1);
-                        i.putExtra("ID", email1);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.putExtra("Activity","MainActivityFacebook");
-                        startActivity(i);
-                        finish();
-                        // Application code
-                    }
-                });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                                System.out.println("Hamza onStart");
+                                Bundle bFacebookData = getFacebookData(object);
+                                email1 = bFacebookData.getString("email");
+                                //   System.out.println("Hamza"+bFacebookData.getString("email"));
+                                Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
+                                i.putExtra("NAME", currentUser.getDisplayName());
+                                System.out.println("=>Hamza" + currentUser.getEmail());
+                                System.out.println("email ID: " + email1);
+                                i.putExtra("ID", email1);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                i.putExtra("Activity", "MainActivityFacebook");
+                                startActivity(i);
+                                finish();
+                                // Application code
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
 
-        request.setParameters(parameters);
-        request.executeAsync();
+                request.setParameters(parameters);
+                request.executeAsync();
 
 
-        // Check if user is signed in (non-null) and update UI accordingly.
+                // Check if user is signed in (non-null) and update UI accordingly.
 
+            }
+        }
+        else{
+            Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("Activity", "NetworkError");
+            startActivity(i);
+            finish();
         }
 
      //   updateUI(currentUser);
+
     }
 
     private void signIn() {
@@ -685,6 +698,12 @@ public class MainActivity extends AppCompatActivity {
         if(mChildEventListener!=null)
             mMessageDatabaseReference.removeEventListener(mChildEventListener);
         mChildEventListener=null;
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

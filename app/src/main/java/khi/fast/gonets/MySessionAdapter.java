@@ -81,7 +81,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         }
 
         ImageView Picture=(ImageView) convertView.findViewById(R.id.Picture);
-        TextView Name=(TextView)convertView.findViewById(R.id.Name);
+        final TextView Name=(TextView)convertView.findViewById(R.id.Name);
         TextView Time=(TextView)convertView.findViewById(R.id.Time);
 
 
@@ -94,6 +94,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                     int count1=0;
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // do something with the individual "issues"
+                        System.out.println(issue.child("id").getValue()+""+Email);
                         if(issue.child("id").getValue().equals(Email)) {
 
                             skillss=issue.child("skills").getValue().toString();
@@ -127,6 +128,10 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                 if(flagg==1) {
                     message = getItem(position);
                     Intent i = new Intent(getContext(), NetSessionDetailActivity.class);
+                    System.out.println("=>"+message.getName());
+                    System.out.println("=>"+message.getTime());
+                    System.out.println("=>"+username);
+                    System.out.println("=>"+skillss);
                     i.putExtra("Name", message.getName());
                     i.putExtra("Time", message.getTime());
                     i.putExtra("Username", username);

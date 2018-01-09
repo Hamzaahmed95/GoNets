@@ -11,15 +11,15 @@
         android:layout_width="match_parent"
         android:id="@+id/linearLayout"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape2">
+        android:background="#71BBD6">
       
         <TextView
             android:layout_width="match_parent"
-            android:padding="10dp"
+            android:padding="15dp"
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+            android:textColor="#e5e5e5"
             android:fontFamily="sans-serif-condensed"
             android:textSize="20dp"
             android:gravity="center"
@@ -27,37 +27,65 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_alignParentRight="true"
             android:id="@+id/logout"
-            android:src="@drawable/logout"/>
+            android:src="@drawable/logoutt"/>
     </RelativeLayout>
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@android:color/holo_red_dark"
+        android:id="@+id/hideLayout2">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:id="@+id/TextName"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:textSize="30dp"
-        android:layout_below="@id/linearLayout"
+        android:id="@+id/Harmain"
+        android:padding="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="@android:color/black"
-        android:text="Hello, Hamza"/>
+        android:layout_below="@id/loading"
+        android:textColor="@android:color/white"
+        android:text="No Internet Connection!"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/mySession"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:paddingLeft="20dp"
-        android:paddingBottom="5dp"
-        android:textSize="20dp"
-        android:layout_below="@id/TextName"
-        android:textColor="@android:color/black"
-        android:fontFamily="sans-serif-condensed"
-        android:text="My Sessions"/>
+        android:background="#71BBD6">
+
+        <TextView
+            android:id="@+id/mySession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:textColor="#e5e5e5"
+            android:fontFamily="sans-serif-condensed"
+            android:text="My Sessions"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/TextName"
+            android:layout_alignParentRight="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#e5e5e5"
+            android:text="Hello, Hamza"/>
+    </RelativeLayout>
+
+
+
+
+
+
 
     <include layout="@layout/net_session_activity2" />
 </LinearLayout>

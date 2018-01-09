@@ -45,6 +45,7 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
     String Picture;
     ImageView backButtonMOM;
     private String username;
+    static private String id1;
     private GoogleApiClient client;
 
     @Override
@@ -72,7 +73,9 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
             }
             else{
                 username=extra.getString("Username");
-
+;
+                id1=extra.getString("ID");
+                System.out.println("CustomeListViewAdapter ID: "+id1);
             }
             }
         selectDate = (ImageButton) findViewById(R.id.selectDate);
@@ -102,6 +105,8 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                System.out.println("HERER???? "+id1);
                 System.out.println("picture"+Picture);
                 System.out.println("picture"+Name);
                 System.out.println("Time"+Time.getText().toString());
@@ -110,7 +115,10 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
                 i.putExtra("Picture",Picture);
                 i.putExtra("Name",Name);
                 i.putExtra("Username",username);
+
+                System.out.println("HERER???? "+id1);
                 i.putExtra("Activity","CreateNewNetSessionActivity");
+                i.putExtra("ID",id1);
                 i.putExtra("Time",Time.getText().toString());
                 startActivity(i);
             }

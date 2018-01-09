@@ -6,12 +6,14 @@ package khi.fast.gonets;
 
 public class MySessionClass {
 
+    private String ID;
     private String Username;
     private String Picture;
     private String Name;
     private String Time;
 
-    public MySessionClass(String username, String picture, String name, String time) {
+    public MySessionClass(String ID, String username, String picture, String name, String time) {
+        this.ID = ID;
         Username = username;
         Picture = picture;
         Name = name;
@@ -19,6 +21,14 @@ public class MySessionClass {
     }
 
     public MySessionClass() {
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getUsername() {
