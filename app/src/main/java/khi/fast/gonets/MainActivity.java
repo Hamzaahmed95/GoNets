@@ -440,44 +440,59 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if(isNetworkAvailable()) {
+
             final FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
+                if (!currentUser.getEmail().equals("")) {
+
+                    System.out.println("CHAL RAHA HAI?");
+                    Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
+                    i.putExtra("NAME", currentUser.getDisplayName());
+                    System.out.println("=>Hamza" + currentUser.getEmail());
+                    System.out.println("email ID: " + currentUser.getEmail());
+                    i.putExtra("ID", currentUser.getEmail());
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra("Activity", "MainActivityFacebook");
+                    startActivity(i);
+                    finish();
+                } else {
+
+                 //   System.out.println("null or not?" + currentUser.getE);
+                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            accessToken,
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(
+                                        JSONObject object,
+                                        GraphResponse response) {
+
+                                    System.out.println("Hamza onStart");
+                                    Bundle bFacebookData = getFacebookData(object);
+                                    email1 = bFacebookData.getString("email");
+                                    //   System.out.println("Hamza"+bFacebookData.getString("email"));
+                                    Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
+                                    i.putExtra("NAME", currentUser.getDisplayName());
+                                    System.out.println("=>Hamza" + currentUser.getEmail());
+                                    System.out.println("email ID: " + email1);
+                                    i.putExtra("ID", email1);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    i.putExtra("Activity", "MainActivityFacebook");
+                                    startActivity(i);
+                                    finish();
+                                    // Application code
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+
+                    request.setParameters(parameters);
+                    request.executeAsync();
 
 
-                AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                GraphRequest request = GraphRequest.newMeRequest(
-                        accessToken,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
+                    // Check if user is signed in (non-null) and update UI accordingly.
 
-                                System.out.println("Hamza onStart");
-                                Bundle bFacebookData = getFacebookData(object);
-                                email1 = bFacebookData.getString("email");
-                                //   System.out.println("Hamza"+bFacebookData.getString("email"));
-                                Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
-                                i.putExtra("NAME", currentUser.getDisplayName());
-                                System.out.println("=>Hamza" + currentUser.getEmail());
-                                System.out.println("email ID: " + email1);
-                                i.putExtra("ID", email1);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                i.putExtra("Activity", "MainActivityFacebook");
-                                startActivity(i);
-                                finish();
-                                // Application code
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-
-                request.setParameters(parameters);
-                request.executeAsync();
-
-
-                // Check if user is signed in (non-null) and update UI accordingly.
-
+                }
             }
         }
         else{

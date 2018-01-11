@@ -53,6 +53,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
     String Email;
     int flagg;
     String skillss;
+    String skillss2;
     MySessionClass message;
     FirebaseUser user;
     String username;
@@ -138,6 +139,51 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                     i.putExtra("Skills",skillss);
                     i.putExtra("Id",Email);
                     getContext().startActivity(i);
+                }
+                else{
+                    message = getItem(position);
+                    Query mHouseDatabaseReference4 =mFirebaseDatabase.getReference().child("UserProfile");
+
+                    mHouseDatabaseReference4.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                int count1=0;
+                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                    // do something with the individual "issues"
+                                 //   System.out.println(issue.child("id").getValue()+""+Email);
+                                    if(issue.child("id").getValue().equals(message.getID())) {
+
+                                        skillss2=issue.child("skills").getValue().toString();
+                                      //  System.out.println("SKILLS "+skillss2);
+                                    }
+
+                                }
+
+                                Intent i = new Intent(getContext(), NetSessionDetailActivity.class);
+                                System.out.println("=>"+message.getName());
+                                System.out.println("=>"+message.getTime());
+                                System.out.println("=>"+message.getUsername());
+                                System.out.println("=>"+skillss2);
+                                System.out.println("=>"+message.getID());
+                                i.putExtra("Name", message.getName());
+                                i.putExtra("Time", message.getTime());
+                                i.putExtra("Username", message.getUsername());
+                                i.putExtra("Skills",skillss2);
+                                i.putExtra("Id",message.getID());
+                                getContext().startActivity(i);
+
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
         });

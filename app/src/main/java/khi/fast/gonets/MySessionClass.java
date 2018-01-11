@@ -11,6 +11,7 @@ public class MySessionClass {
     private String Picture;
     private String Name;
     private String Time;
+    private String message;
 
     public MySessionClass(String ID, String username, String picture, String name, String time) {
         this.ID = ID;
