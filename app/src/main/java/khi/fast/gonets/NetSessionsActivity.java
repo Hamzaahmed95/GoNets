@@ -78,6 +78,8 @@ public class NetSessionsActivity extends AppCompatActivity {
     private LinearLayout hideLayout2;
     private LinearLayout reload;
     private String skills;
+    String UID;
+
     private RelativeLayout HideLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,14 +219,44 @@ public class NetSessionsActivity extends AppCompatActivity {
                             Picture = extra.getString("Picture");
                             Time = extra.getString("Time");
                             System.out.println("HI");
-                            id1=extra.getString("ID");
+
+                            emailFacebook=extra.getString("ID");
                             System.out.println("wtf"+extra.getString("ID"));
                             //   username2=extra.getString("Username");
                             System.out.println("what is this?"+Username);
-                            System.out.println("id?"+id1);
-                            MySessionClass MySessionClass = new MySessionClass(id1,Username,Picture, Name, Time);
-                            // Clear input box
-                            mMessageDatabaseReference.push().setValue(MySessionClass);
+                            System.out.println("id?"+emailFacebook);
+                            Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
+
+                            mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        int count1=0;
+                                        for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                            // do something with the individual "issues"
+                                            System.out.println(issue.child("id").getValue()+""+emailFacebook);
+                                            if(issue.child("id").getValue().equals(emailFacebook)) {
+
+                                               count1++;
+                                            }
+
+                                        }
+                                        UID=emailFacebook+""+count1;
+                                        System.out.println("UIDD"+UID);
+                                        MySessionClass MySessionClass = new MySessionClass(UID,emailFacebook,Username,Picture, Name, Time,"Write a Message! ",0);
+                                        // Clear input box
+                                        mMessageDatabaseReference.push().setValue(MySessionClass);
+
+                                    }
+                                }
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                         }
 
                     }
@@ -334,7 +366,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     MySessionClass momclass = dataSnapshot.getValue(MySessionClass.class);
                     if(momclass!=null){
-                        if(dataSnapshot.child("username").getValue().equals(Username)){
+                        if(dataSnapshot.child("id").getValue().equals(emailFacebook)){
 
                             MySessionAdapter.add(momclass);
                             System.out.println("HI");

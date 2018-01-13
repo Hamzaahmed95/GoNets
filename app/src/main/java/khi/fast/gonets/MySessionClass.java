@@ -6,22 +6,35 @@ package khi.fast.gonets;
 
 public class MySessionClass {
 
+    private String UID;
     private String ID;
     private String Username;
     private String Picture;
     private String Name;
     private String Time;
     private String message;
+    private int noOfPeopleGoing;
 
-    public MySessionClass(String ID, String username, String picture, String name, String time) {
+    public MySessionClass(String UID, String ID, String username, String picture, String name, String time, String message, int noOfPeopleGoing) {
+        this.UID = UID;
         this.ID = ID;
         Username = username;
         Picture = picture;
         Name = name;
         Time = time;
+        this.message = message;
+        this.noOfPeopleGoing = noOfPeopleGoing;
     }
 
     public MySessionClass() {
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getID() {
@@ -62,5 +75,21 @@ public class MySessionClass {
 
     public void setTime(String time) {
         Time = time;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getNoOfPeopleGoing() {
+        return noOfPeopleGoing;
+    }
+
+    public void setNoOfPeopleGoing(int noOfPeopleGoing) {
+        this.noOfPeopleGoing = noOfPeopleGoing;
     }
 }
