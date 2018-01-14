@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@drawable/bg_gradient"
+    android:background="#fff"
     android:id="@+id/rightLayoutMOM"
     android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
             android:text="National Cricket Academy"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="#4F8295"/>
+            android:textColor="#00264c"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                 android:id="@+id/noOfPersonGoing"
                 android:textSize="15dp"
                 android:gravity="center"
-                android:textColor="@android:color/black"
+                android:textColor="#00264c"
                 android:text="4 Going"/>
 
 

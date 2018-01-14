@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_gradient"
+    android:background="#fff"
     android:layout_height="match_parent"
     tools:showIn="@layout/net_sessions_activity">
 
@@ -17,7 +17,7 @@
         <ListView
             android:id="@+id/messageListView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_above="@+id/li"
             android:layout_alignParentTop="true"/>
     </LinearLayout>
@@ -40,11 +40,11 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="15dp"
-            android:background="#d3d3d3"
+            android:background="#00264c"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:text="There are some other net sessions happing soon"/>
 
         <View
@@ -73,7 +73,7 @@
         android:gravity="right|bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/shape2"
+        android:background="@android:color/transparent"
         android:orientation="horizontal">
 
 
@@ -82,7 +82,7 @@
             android:padding="10dp"
 
             android:layout_height="wrap_content"
-            android:background="#D3D3D3">
+            android:background="@android:color/transparent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -93,15 +93,13 @@
                 android:fontFamily="sans-serif-condensed"
                 android:textSize="20dp"
                 android:gravity="center"
-                android:text="Creat a new Net Session"/>
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
+                android:text="Create a new Net Session"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:id="@+id/UserTeam"
-                android:background="@drawable/circle"
-                android:src="@android:drawable/ic_input_add"/>
+                android:src="@drawable/blue"/>
         </RelativeLayout>
 
     </RelativeLayout>

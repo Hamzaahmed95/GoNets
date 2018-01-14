@@ -48,7 +48,7 @@ import java.util.List;
 
 public class NetSessionsActivity extends AppCompatActivity {
     private Dialog dialog;
-    ImageButton Add;
+    ImageView Add;
 
     private MySessionAdapter MySessionAdapter;
     private MySessionAdapter MySessionAdapter2;
@@ -141,7 +141,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                         public void run() {
                             //findViewById(R.id.layout1).setVisibility(View.GONE);
 
-                            Intent i = new Intent(NetSessionsActivity.this,NetSessionsActivity.class);
+                            Intent i = new Intent(NetSessionsActivity.this,MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             progressBar2.setVisibility(View.GONE);
@@ -164,7 +164,7 @@ public class NetSessionsActivity extends AppCompatActivity {
             }
         });
 
-        Add=(ImageButton) findViewById(R.id.UserTeam);
+        Add=(ImageView) findViewById(R.id.UserTeam);
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

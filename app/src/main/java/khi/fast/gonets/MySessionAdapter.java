@@ -122,7 +122,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
 //        Picture.setImageResource(Integer.parseInt(message.getPicture()));
         Name.setText(message.getName());
         Time.setText(message.getTime());
-        noOfPersonGoing.setText(String.valueOf(message.getNoOfPeopleGoing())+"going");
+        noOfPersonGoing.setText(String.valueOf(message.getNoOfPeopleGoing())+" going");
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

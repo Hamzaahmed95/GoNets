@@ -9,6 +9,7 @@ import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -66,7 +68,6 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
             }
             else{
                 username=extra.getString("Username");
-;
                 id1=extra.getString("ID");
                 System.out.println("CustomeListViewAdapter ID: "+id1);
             }
@@ -84,12 +85,12 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         });
         BestTeam = (Spinner)findViewById(R.id.favTeam);
         BestTeam2 = (Spinner)findViewById(R.id.favTeam2);
-        final String[] items = new String[]{"1","2","3", "4", "5", "6", "7", "8"};
+        final String[] items = new String[]{"select","1","2","3", "4", "5", "6", "7", "8"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_style, items);
 
         BestTeam.setAdapter(adapter);
         BestTeam.setPrompt("select");
-        final String[] items2 = new String[]{"Beginner","Medium","Pro",};
+        final String[] items2 = new String[]{"select","Beginner","Medium","Pro",};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.spinner_style, items2);
 
         BestTeam2.setAdapter(adapter2);
@@ -98,22 +99,113 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("null? "+GroundName.getText().equals("Cricket Academy"));
+                System.out.println("date? "+Time.getText().equals("5:30 PM."));
+                System.out.println("max"+BestTeam.getSelectedItem().toString().equals("select"));
+                System.out.println("Skills"+BestTeam2.getSelectedItem().toString().equals("select"));
+                if(GroundName.getText().equals("Cricket Academy") ||Time.getText().equals("5:30 PM.")||
+                        BestTeam.getSelectedItem().toString().equals("select")||
+                        BestTeam2.getSelectedItem().toString().equals("select")){
 
-                System.out.println("HERER???? "+id1);
-                System.out.println("picture"+Picture);
-                System.out.println("picture"+Name);
-                System.out.println("Time"+Time.getText().toString());
-                Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+                    if(GroundName.getText().equals("Cricket Academy")){
+                    final LinearLayout chooseLocaionCheck=(LinearLayout)findViewById(R.id.chooseLocaionCheck);
 
-                i.putExtra("Picture",Picture);
-                i.putExtra("Name",Name);
-                i.putExtra("Username",username);
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
 
-                System.out.println("HERER???? "+id1);
-                i.putExtra("Activity","CreateNewNetSessionActivity");
-                i.putExtra("ID",id1);
-                i.putExtra("Time",Time.getText().toString());
-                startActivity(i);
+                                chooseLocaionCheck.setBackground( getResources().getDrawable(R.color.red));
+                                Toast.makeText(CreateNewNetSessionActivity.this,"Choose Location",Toast.LENGTH_SHORT).show();
+                            }
+                        }, 0);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                chooseLocaionCheck.setBackground( getResources().getDrawable(R.color.white));
+                            }
+                        }, 1000);
+
+                    }
+                    else if(Time.getText().equals("5:30 PM.")){
+                        final LinearLayout SetDateTimeCheck=(LinearLayout)findViewById(R.id.SetDateTimeCheck);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                SetDateTimeCheck.setBackground( getResources().getDrawable(R.color.red));
+                                Toast.makeText(CreateNewNetSessionActivity.this,"Select Date and Time",Toast.LENGTH_SHORT).show();
+                            }
+                        }, 0);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                SetDateTimeCheck.setBackground( getResources().getDrawable(R.color.white));
+                            }
+                        }, 1000);
+
+
+                    }
+                    else if(BestTeam.getSelectedItem().toString().equals("select")){
+                        final TextView MaxPartCheck=(TextView) findViewById(R.id.MaxPartCheck);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                MaxPartCheck.setVisibility(View.VISIBLE);
+                            }
+                        }, 0);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                MaxPartCheck.setVisibility(View.GONE);
+                            }
+                        }, 1000);
+
+
+                    }
+                    else if(BestTeam2.getSelectedItem().toString().equals("select")){
+                        final TextView SkillsCheck=(TextView) findViewById(R.id.SkillsCheck);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                SkillsCheck.setVisibility(View.VISIBLE);
+                            }
+                        }, 0);
+
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+
+                                SkillsCheck.setVisibility(View.GONE);
+                            }
+                        }, 1000);
+
+
+                    }
+
+
+
+                }
+                else{
+                    System.out.println("HERER???? "+id1);
+                    System.out.println("picture"+Picture);
+                    System.out.println("picture"+Name);
+                    System.out.println("Time"+Time.getText().toString());
+                    Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+
+                    i.putExtra("Picture",Picture);
+                    i.putExtra("Name",Name);
+                    i.putExtra("Username",username);
+
+                    System.out.println("HERER???? "+id1);
+                    i.putExtra("Activity","CreateNewNetSessionActivity");
+                    i.putExtra("ID",id1);
+                    i.putExtra("Time",Time.getText().toString());
+                    startActivity(i);
+                }
+
             }
         });
         backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
