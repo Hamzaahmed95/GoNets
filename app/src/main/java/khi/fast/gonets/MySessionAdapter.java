@@ -144,6 +144,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                     i.putExtra("Message",message.getMessage());
                     i.putExtra("UID",message.getUID());
                     i.putExtra("CurrentUser",Email);
+                    i.putExtra("Flag",flagg);
                     getContext().startActivity(i);
                 }
                 else{
@@ -183,6 +184,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                                 System.out.println("Message hai ?"+message.getMessage());
                                 i.putExtra("Message",message.getMessage());
                                 i.putExtra("CurrentUser",Email);
+                                i.putExtra("Flag",flagg);
                                 getContext().startActivity(i);
 
                             }

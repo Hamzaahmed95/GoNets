@@ -373,6 +373,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
                         else {
                             MySessionAdapter2.add(momclass);
+
                             System.out.println("Bye");
                         }
                     }

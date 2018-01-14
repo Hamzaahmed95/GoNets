@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.widget.SendButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -79,9 +80,55 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         MessageText = (TextView) findViewById(R.id.MessageText);
         MessageEditText = (EditText) findViewById(R.id.MessageEditText);
         SendMessage = (Button) findViewById(R.id.SendMessage);
-        SendMessage.setOnClickListener(new View.OnClickListener() {
+        Bundle extra2 = getIntent().getExtras();
+        if (extra2 != null) {
+            System.out.println("HERE =>");
+
+            if(extra2.getInt("Flag")==2){
+                MessageEditText.setVisibility(View.GONE);
+                SendMessage.setVisibility(View.GONE);
+            };
+        }
+            SendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
+
+                mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int count1=0;
+                            for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                // do something with the individual "issues"
+                                System.out.println(issue.child("uid").getValue()+""+UID);
+                                if(issue.child("uid").getValue().equals(UID)) {
+
+
+                                    issue.getRef().child("message").setValue(MessageEditText.getText().toString());
+
+
+
+
+
+
+
+                                }
+
+                            }
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
 
             }
         });

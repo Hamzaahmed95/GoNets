@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -57,11 +58,24 @@ public class NetFacilitiesNearYouActivity extends AppCompatActivity implements
      */
      /**
      * Called when the activity is first created.
+      *
+      *
      */
+     ImageView backButtonMOM;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.net_facilities_near_you);
+        backButtonMOM=(ImageView)findViewById(R.id.backButtonMOM);
+        backButtonMOM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NetFacilitiesNearYouActivity.this,CreateNewNetSessionActivity.class);
+                startActivity(i);
+
+            }
+        });
 
         netFacilityClass = new ArrayList<NetFacilityClass>();
         for (int i = 0; i < name.length; i++) {

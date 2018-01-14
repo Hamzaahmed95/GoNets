@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:id="@+id/main"
+    android:background="#e5e9ed"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,8 +24,9 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:id="@+id/name"
+            android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@android:color/black"
+            android:textColor="#00264c"
             android:text="Rashid Latif Cricket Academy"/>
 
         <TextView
@@ -44,9 +46,10 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_gravity="left"
-            android:background="@drawable/shape2"
-            android:textColor="@android:color/black"
+            android:background="#00264c"
+            android:textColor="@android:color/white"
             android:fontFamily="sans-serif-condensed"/>
+
 
     </LinearLayout>
 
