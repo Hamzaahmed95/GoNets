@@ -35,6 +35,8 @@ public class NetFacilitiesDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(NetFacilitiesDetailsActivity.this,NetFacilitiesNearYouActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(i);
             }
         });

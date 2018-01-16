@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|top"
-    android:background="#00264c"
+    android:background="@drawable/bg_gradient3"
     android:orientation="vertical"
     tools:context="khi.fast.gonets.MainActivity">
 
@@ -17,7 +17,7 @@
         android:paddingBottom="30dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:textSize="35dp"
+        android:textSize="40dp"
         android:text="GoNets" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:textColor="@android:color/white"
             android:text="Login Using: "/>
 
@@ -67,9 +68,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:padding="20dp"
+            android:padding="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/transparent_back"/>
+            android:src="@drawable/square_back"/>
 
 
     </LinearLayout>

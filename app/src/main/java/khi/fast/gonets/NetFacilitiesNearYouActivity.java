@@ -72,6 +72,8 @@ public class NetFacilitiesNearYouActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(NetFacilitiesNearYouActivity.this,CreateNewNetSessionActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(i);
 
             }

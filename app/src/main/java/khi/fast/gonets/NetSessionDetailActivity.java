@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
@@ -70,6 +71,8 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                 Intent i = new Intent(NetSessionDetailActivity.this, NetSessionsActivity.class);
                 i.putExtra("Activity","NetSessionDetailActivity");
                 i.putExtra("ID",id1);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(i);
             }
         });
@@ -163,21 +166,24 @@ public class NetSessionDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println();
-                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("PeopleGoingToNetSession");
+                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("PeopleGoingToNetSession").orderByChild("uid");
 
                 mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            int count2=0;
+                            int count1=0;
                             for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                // do something with the individual "issues"
-                                if(issue.child("id").getValue().equals(CurrentUser)) {
-                                    count2++;
+
+                                if(issue.child("uid").getValue().equals(UID)) {
+                                    if(issue.child("id").getValue().equals(CurrentUser)){
+                                        count1++;
+                                    }
                                 }
 
                             }
-                            if(count2==0){
+                            System.out.println("count 1 ? 0"+count1);
+                            if(count1==0){
                                 Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
 
                                 mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -191,13 +197,13 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                                                 if(issue.child("uid").getValue().equals(UID)) {
 
 
-                                    int count=Integer.valueOf(issue.child("noOfPeopleGoing").getValue().toString());
-                                    System.out.println("Before?"+count);
-                                    count=count+1;
-                                    issue.getRef().child("noOfPeopleGoing").setValue(count);
-                                    System.out.println("After! "+issue.child("noOfPeopleGoing").getValue().toString());
-                                    NoOfPeopleGoing noOfPeopleGoing=new NoOfPeopleGoing(UID,CurrentUser);
-                                    mMessageDatabaseReference.push().setValue(noOfPeopleGoing);
+                                                    int count=Integer.valueOf(issue.child("noOfPeopleGoing").getValue().toString());
+                                                    System.out.println("Before?"+count);
+                                                    count=count+1;
+                                                    issue.getRef().child("noOfPeopleGoing").setValue(count);
+                                                    System.out.println("After! "+issue.child("noOfPeopleGoing").getValue().toString());
+                                                    NoOfPeopleGoing noOfPeopleGoing=new NoOfPeopleGoing(UID,CurrentUser);
+                                                    mMessageDatabaseReference.push().setValue(noOfPeopleGoing);
 
 
 
@@ -219,27 +225,9 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                                     }
                                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-                                //   NoOfPeopleGoing noOfPeopleGoing=new NoOfPeopleGoing(UID,CurrentUser);
-                               // mMessageDatabaseReference.push().setValue(noOfPeopleGoing);
-
-
-
-
                             }
                             else{
-                                System.out.println("You already going it!");
+                                Toast.makeText(NetSessionDetailActivity.this,"You already going it!",Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -251,6 +239,79 @@ public class NetSessionDetailActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*          Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
+
+                mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int count1=0;
+                            for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                // do something with the individual "issues"
+                                System.out.println(issue.child("uid").getValue()+""+UID);
+                                if(issue.child("uid").getValue().equals(UID)) {
+
+
+                                    int count=Integer.valueOf(issue.child("noOfPeopleGoing").getValue().toString());
+                                    System.out.println("Before?"+count);
+                                    count=count+1;
+                                    issue.getRef().child("noOfPeopleGoing").setValue(count);
+                                    System.out.println("After! "+issue.child("noOfPeopleGoing").getValue().toString());
+                                    NoOfPeopleGoing noOfPeopleGoing=new NoOfPeopleGoing(UID,CurrentUser);
+                                    mMessageDatabaseReference.push().setValue(noOfPeopleGoing);
+
+
+
+
+
+
+
+                                }
+
+                            }
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+*/
+
+
 
 
 

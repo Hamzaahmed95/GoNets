@@ -203,6 +203,8 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
                     i.putExtra("Activity","CreateNewNetSessionActivity");
                     i.putExtra("ID",id1);
                     i.putExtra("Time",Time.getText().toString());
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
                     startActivity(i);
                 }
 
@@ -221,6 +223,8 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
                 i.putExtra("Activity","CreateNewNetSessionActivity1");
                 i.putExtra("ID",id1);
                 i.putExtra("Time",Time.getText().toString());
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(i);
             }
         });

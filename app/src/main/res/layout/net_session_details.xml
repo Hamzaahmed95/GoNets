@@ -290,12 +290,10 @@
                     android:id="@+id/tick"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:background="@drawable/circle"
+                    android:background="@drawable/circle4"
                     android:gravity="right"
                     android:padding="20dp"
                     android:layout_margin="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:src="@drawable/tick"
                     android:paddingRight="10dp"/>
 

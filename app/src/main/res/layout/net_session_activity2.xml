@@ -45,7 +45,7 @@
             android:paddingBottom="10dp"
             android:fontFamily="sans-serif-condensed"
             android:textColor="#fff"
-            android:text="There are some other net sessions happing soon"/>
+            android:text="There are some other net sessions happening soon"/>
 
         <View
             android:layout_width="match_parent"
