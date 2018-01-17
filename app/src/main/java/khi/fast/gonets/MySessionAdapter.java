@@ -177,6 +177,7 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                                 i.putExtra("Name", message.getName());
                                 i.putExtra("Time", message.getTime());
                                 i.putExtra("Username", message.getUsername());
+                                i.putExtra("Username2", username);
                                 i.putExtra("Skills",skillss2);
                                 i.putExtra("Id",Email);
                                 System.out.println("=>UID"+message.getUID());

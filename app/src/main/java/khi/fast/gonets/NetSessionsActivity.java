@@ -280,9 +280,13 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
                         else if (extra.getString("Activity").equals("CreateNewNetSessionActivity1")){
                              emailFacebook=extra.getString("ID");
-                              }
+                            username=extra.getString("Username");
+                            TextName.setText("Hello, "+extra.getString("Username"));
+
+                        }
                         else if (extra.getString("Activity").equals("NetSessionDetailActivity")){
                             emailFacebook=extra.getString("ID");
+                            TextName.setText("Hello, "+extra.getString("Username"));
                         }
 
                     }
@@ -373,6 +377,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                         }
                         else {
                             MySessionAdapter2.add(momclass);
+
 
                             System.out.println("Bye");
                         }

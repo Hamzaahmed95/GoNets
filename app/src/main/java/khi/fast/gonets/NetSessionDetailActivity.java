@@ -56,7 +56,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
     private String CurrentUser;
     private FirebaseAuth mAuth;
     private String id1;
-
+    private String username;
     private noOfPeopleAdapter noOfPeopleAdapter;
     private FirebaseAuth.AuthStateListener mAuthStateListner;
 
@@ -71,6 +71,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                 Intent i = new Intent(NetSessionDetailActivity.this, NetSessionsActivity.class);
                 i.putExtra("Activity","NetSessionDetailActivity");
                 i.putExtra("ID",id1);
+                i.putExtra("Username",username);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 startActivity(i);
@@ -86,13 +87,14 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         Bundle extra2 = getIntent().getExtras();
         if (extra2 != null) {
             System.out.println("HERE =>");
-
+            username=extra2.getString("Username");
             if(extra2.getInt("Flag")==2){
                 MessageEditText.setVisibility(View.GONE);
                 SendMessage.setVisibility(View.GONE);
+                username=extra2.getString("Username2");
             };
         }
-            SendMessage.setOnClickListener(new View.OnClickListener() {
+        SendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
@@ -166,12 +168,15 @@ public class NetSessionDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println();
-                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("PeopleGoingToNetSession").orderByChild("uid");
+                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("PeopleGoingToNetSession");
 
                 mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
                         if (dataSnapshot.exists()) {
+                            System.out.println("THere?");
                             int count1=0;
                             for (DataSnapshot issue : dataSnapshot.getChildren()) {
 
@@ -326,13 +331,13 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         if (extra != null) {
             System.out.println("HERE =>");
 
-                TextName.setText(extra.getString("Name"));
-                Time.setText(extra.getString("Time"));
-                Name.setText(extra.getString("Username"));
-                MessageText.setText(extra.getString("Message"));
-                id1=extra.getString("Id");
-                UID=extra.getString("UID");
-                CurrentUser=extra.getString("CurrentUser");
+            TextName.setText(extra.getString("Name"));
+            Time.setText(extra.getString("Time"));
+            Name.setText(extra.getString("Username"));
+            MessageText.setText(extra.getString("Message"));
+            id1=extra.getString("Id");
+            UID=extra.getString("UID");
+            CurrentUser=extra.getString("CurrentUser");
             if(extra.getString("Skills").equals("Baller Batsman and Wicket Keeper")){
                 ball.setVisibility(View.VISIBLE);
                 bat.setVisibility(View.VISIBLE);
@@ -382,7 +387,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                         onSignedInInitialize(UID);
                     }
 
-                        final List<NoOfPeopleGoing> NoOfPeopleGoing = new ArrayList<>();
+                    final List<NoOfPeopleGoing> NoOfPeopleGoing = new ArrayList<>();
                     noOfPeopleAdapter = new noOfPeopleAdapter(NetSessionDetailActivity.this, R.layout.item_net_sessions, NoOfPeopleGoing);
                     if(mmessageListViewMOM2!=null)
                         mmessageListViewMOM2.setAdapter(noOfPeopleAdapter);
@@ -398,6 +403,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         Intent i = new Intent(NetSessionDetailActivity.this, NetSessionsActivity.class);
         i.putExtra("Activity","NetSessionDetailActivity");
         i.putExtra("ID",id1);
+        i.putExtra("Username",username);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         startActivity(i);
