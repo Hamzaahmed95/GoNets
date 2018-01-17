@@ -28,8 +28,8 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
     <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorControlNormal">#000</item>   <!-- normal border color change as you wish -->
-        <item name="colorControlActivated">#000</item> <!-- activated color change as you wish -->
+        <item name="colorControlNormal">#fff</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">#fff</item> <!-- activated color change as you wish -->
         <item name="android:textColor">#FFFF3F3C</item> <!-- checkbox text color -->
     </style>
     <style name="AppTheme.AppBarOverlay"

@@ -10,6 +10,7 @@
     <EditText
         android:layout_width="match_parent"
         android:padding="30dp"
+        android:singleLine="true"
         android:id="@+id/favouriteNet"
         android:layout_height="wrap_content"
         android:background="@drawable/shape2"

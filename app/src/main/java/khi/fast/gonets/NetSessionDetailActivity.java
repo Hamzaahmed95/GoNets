@@ -394,6 +394,25 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         };
     }
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(NetSessionDetailActivity.this, NetSessionsActivity.class);
+        i.putExtra("Activity","NetSessionDetailActivity");
+        i.putExtra("ID",id1);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(i);
+        super.onBackPressed();
+
+    }
+
+
+
+
+
+
+
+
+    @Override
     protected void onPause(){
         super.onPause();
         if(mAuthStateListner!=null) {

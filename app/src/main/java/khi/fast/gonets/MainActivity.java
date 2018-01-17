@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
 
     String email1;
+    String email2="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account!=null) {
+            System.out.println("Hi there!" + account.getEmail());
+            email2 = account.getEmail();
+        }
         //updateUI(account);
         SignInButton signInButton =(SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -357,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 final GoogleSignInAccount account = task.getResult(ApiException.class);
+                email2=account.getEmail();
 
                 Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("LoginEmails");
 
@@ -441,16 +448,20 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if(isNetworkAvailable()) {
 
-            final FirebaseUser currentUser = mAuth.getCurrentUser();
+           final FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
-                if (!currentUser.getEmail().equals("")) {
+
+          //      Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+               // System.out.println("NULLL"+currentUser.getEmail().equals(""));
+                if (!email2.equals("")) {
 
                     System.out.println("CHAL RAHA HAI?");
                     Intent i = new Intent(MainActivity.this, NetSessionsActivity.class);
                     i.putExtra("NAME", currentUser.getDisplayName());
                     System.out.println("=>Hamza" + currentUser.getEmail());
-                    System.out.println("email ID: " + currentUser.getEmail());
-                    i.putExtra("ID", currentUser.getEmail());
+                    System.out.println("email ID: " + email2);
+                    i.putExtra("ID", email2);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     i.putExtra("Activity", "MainActivityFacebook");
                     startActivity(i);
@@ -584,7 +595,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct, final int flag) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct, final int flag) {
         System.out.println("firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -602,8 +613,9 @@ public class MainActivity extends AppCompatActivity {
                                 Intent i = new Intent(MainActivity.this, GettingStartedActivity.class);
                                 i.putExtra("NAME", user.getDisplayName());
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                System.out.println("ID1"+acct.getEmail());
                                 System.out.println("ID" + user.getEmail());
-                                i.putExtra("ID", user.getEmail());
+                                i.putExtra("ID", acct.getEmail());
                                 startActivity(i);
                                 finish();
                             }
@@ -615,7 +627,7 @@ public class MainActivity extends AppCompatActivity {
                                 i.putExtra("Activity","MainActivityGoogle");
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 System.out.println("USERRRRRRRRRR"+user.getDisplayName());
-                                System.out.println("ID" + user.getEmail());
+                                System.out.println("ID" + acct.getEmail());
                                 startActivity(i);
                                 finish();
                             }

@@ -4,51 +4,58 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:gravity="center"
-    android:background="@drawable/bg_gradient"
+    android:background="@drawable/bg_gradient3"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textSize="20dp"
+
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content"
+            android:text="Welcome, "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:id="@+id/Name"
+
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content"
+            android:text="Hamza!"/>
+    </LinearLayout></ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="40dp"
-            android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
         android:gravity="center"
-        android:textSize="22dp"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@android:color/black"
-        android:layout_height="wrap_content"
-        android:text="Welcome, "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:id="@+id/Name"
-
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
-                android:text="Hamza!"/>
-        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="left"
         android:paddingLeft="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -56,7 +63,7 @@
             android:layout_width="40dp"
             android:layout_marginTop="5dp"
             android:layout_height="40dp"
-            android:src="@drawable/first"/>
+            android:src="@drawable/righttt"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +75,7 @@
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:text="Choose a screen name"/>
         <EditText
@@ -79,8 +86,10 @@
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
             android:paddingBottom="10dp"
-            android:background="@drawable/shape"
+            android:background="@drawable/shape4"
             android:layout_height="wrap_content"
             android:hint="Enter a screen name"/>
         </LinearLayout>
@@ -89,12 +98,12 @@
 
 <View
     android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginLeft="50dp"
+    android:layout_height="1.5dp"
+    android:layout_marginLeft="100dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    android:layout_marginRight="50dp"
-    android:background="@android:color/black"/>
+    android:layout_marginRight="100dp"
+    android:background="@android:color/white"/>
 
 
     <LinearLayout
@@ -112,14 +121,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/two"/>
+            android:src="@drawable/righttt"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:padding="10dp"
                 android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:text="Choose your skill(s)"/>
@@ -169,11 +178,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_height="1.5dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
             android:layout_marginTop="10dp"
-            android:background="@android:color/black"/>
+            android:background="@android:color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -190,7 +199,7 @@
             android:layout_width="40dp"
             android:layout_marginTop="5dp"
             android:layout_height="40dp"
-            android:src="@drawable/three"/>
+            android:src="@drawable/righttt"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,7 +209,7 @@
                 android:id="@+id/chooseNets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:fontFamily="sans-serif-condensed"
                 android:padding="10dp"
@@ -217,7 +226,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:visibility="gone"
-                    android:src="@drawable/right"/>
+                    android:src="@drawable/righttt"/>
 
             <TextView
                 android:id="@+id/favouriteNetsName"
@@ -225,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:text=""/>
             </LinearLayout>
 
@@ -247,9 +256,9 @@
             android:id="@+id/checkboxDefault"
             android:layout_width="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/black"
+            android:textColorHint="@android:color/white"
             android:text="Email Notification"
             android:theme="@style/MyCheckBox"
             android:checked="true" />

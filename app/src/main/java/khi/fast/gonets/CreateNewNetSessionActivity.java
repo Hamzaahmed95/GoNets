@@ -233,6 +233,23 @@ public class CreateNewNetSessionActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(CreateNewNetSessionActivity.this,NetSessionsActivity.class);
+        i.putExtra("Picture",Picture);
+        i.putExtra("Name",Name);
+        i.putExtra("Username",username);
+
+        System.out.println("HERER???? "+id1);
+        i.putExtra("Activity","CreateNewNetSessionActivity1");
+        i.putExtra("ID",id1);
+        i.putExtra("Time",Time.getText().toString());
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(i);
+        super.onBackPressed();
+
+    }
 
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();

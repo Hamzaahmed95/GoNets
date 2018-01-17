@@ -178,6 +178,8 @@ public class GettingStartedActivity extends AppCompatActivity {
                     i.putExtra("Name",Name.getText().toString());
                     i.putExtra("ID",id);
                     i.putExtra("Activity","GettingStartedActivity");
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
                     startActivity(i);
 
                 }
