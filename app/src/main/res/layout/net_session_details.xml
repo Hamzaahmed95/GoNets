@@ -279,6 +279,7 @@
 
 
                 <TextView
+                    android:id="@+id/Status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="I am going too"

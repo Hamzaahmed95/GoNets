@@ -44,6 +44,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
     TextView Name;
     ImageView ball;
     ImageView bat;
+    TextView Status;
 
     private ListView mmessageListViewMOM2;
     ImageView wkeeper;
@@ -77,7 +78,10 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        Status=(TextView)findViewById(R.id.Status);
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("PeopleGoingToNetSession");
         mmessageListViewMOM2 = (ListView) findViewById(R.id.messageListView2);
         TextName = (TextView) findViewById(R.id.TextName);
         Time = (TextView) findViewById(R.id.Time);
@@ -95,6 +99,60 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                 username=extra2.getString("Username2");
             };
         }
+        Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("PeopleGoingToNetSession");
+
+        mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    System.out.println("THere?");
+                    int count1=0;
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+
+                        if(issue.child("uid").getValue().equals(UID)) {
+                            if(issue.child("id").getValue().equals(CurrentUser)){
+                                count1++;
+                            }
+                        }
+
+                    }
+                    System.out.println("count 1 ? 0"+count1);
+                    if(count1==0){
+
+
+                        Status.setText("I am going!");
+                        tick.setBackgroundResource(R.drawable.circle4);
+                        tick.setImageResource(R.drawable.tick);
+                    }
+                    else{
+                        Status.setText("No, I am not going!");
+                        tick.setBackgroundResource(R.drawable.circle5);
+                        tick.setImageResource(R.drawable.cross);
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
         SendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,9 +200,6 @@ public class NetSessionDetailActivity extends AppCompatActivity {
         bat=(ImageView)findViewById(R.id.bat);
         wkeeper=(ImageView)findViewById(R.id.wkeeper);
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("PeopleGoingToNetSession");
 
 
 
@@ -184,12 +239,18 @@ public class NetSessionDetailActivity extends AppCompatActivity {
                                 if(issue.child("uid").getValue().equals(UID)) {
                                     if(issue.child("id").getValue().equals(CurrentUser)){
                                         count1++;
+                                        issue.child("id").getRef().removeValue();
+                                        issue.child("uid").getRef().removeValue();
                                     }
                                 }
 
                             }
                             System.out.println("count 1 ? 0"+count1);
                             if(count1==0){
+                                Status.setText("I am going!");
+                                tick.setBackgroundResource(R.drawable.circle4);
+                                tick.setImageResource(R.drawable.tick);
+
                                 Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
 
                                 mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -233,6 +294,48 @@ public class NetSessionDetailActivity extends AppCompatActivity {
 
                             }
                             else{
+
+                                Status.setText("No, I am not going!");
+                                tick.setBackgroundResource(R.drawable.circle5);
+                                tick.setImageResource(R.drawable.cross);
+                                Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("MySessions");
+
+                                mHouseDatabaseReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            int count1=0;
+                                            for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                                // do something with the individual "issues"
+                                                System.out.println(issue.child("uid").getValue()+""+UID);
+                                                if(issue.child("uid").getValue().equals(UID)) {
+
+
+                                                    int count=Integer.valueOf(issue.child("noOfPeopleGoing").getValue().toString());
+                                                    System.out.println("Before?"+count);
+                                                    count=count-1;
+                                                    issue.getRef().child("noOfPeopleGoing").setValue(count);
+                                                    System.out.println("After! "+issue.child("noOfPeopleGoing").getValue().toString());
+
+
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+
+
+
                                 Toast.makeText(NetSessionDetailActivity.this,"You already going it!",Toast.LENGTH_SHORT).show();
                             }
 
