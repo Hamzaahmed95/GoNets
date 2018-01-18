@@ -57,11 +57,13 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
     MySessionClass message;
     FirebaseUser user;
     String username;
+    String ScreenName;
 
     private FirebaseAuth mAuth;
-    public MySessionAdapter(Context context, int resource, List<MySessionClass> objects,String name1,int flag,String email) {
+    public MySessionAdapter(Context context, int resource, List<MySessionClass> objects,String name1,int flag,String email,String screenName) {
         super(context, resource, objects);
         this.context=context;
+     //   ScreenName=screenName;
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -85,6 +87,35 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
         final TextView Name=(TextView)convertView.findViewById(R.id.Name);
         TextView Time=(TextView)convertView.findViewById(R.id.Time);
         TextView noOfPersonGoing=(TextView)convertView.findViewById(R.id.noOfPersonGoing);
+        Query mHouseDatabaseReference4 =mFirebaseDatabase.getReference().child("UserProfile");
+
+        mHouseDatabaseReference4.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int count1=0;
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        if(issue.child("id").getValue().equals(Email)){
+                            System.out.println("ScreenName"+issue.child("screenName").getValue().toString());
+                            ScreenName=issue.child("screenName").getValue().toString();
+                        }
+
+
+                    }
+
+
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         Query mHouseDatabaseReference3 =mFirebaseDatabase.getReference().child("UserProfile");
 
@@ -144,6 +175,8 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                     i.putExtra("Message",message.getMessage());
                     i.putExtra("UID",message.getUID());
                     i.putExtra("CurrentUser",Email);
+                    System.out.println("ARAHA HAI?"+ScreenName);
+                    i.putExtra("ScreenName",ScreenName);
                     i.putExtra("Flag",flagg);
                     getContext().startActivity(i);
                 }
@@ -180,6 +213,8 @@ public class MySessionAdapter extends ArrayAdapter<MySessionClass>{
                                 i.putExtra("Username2", username);
                                 i.putExtra("Skills",skillss2);
                                 i.putExtra("Id",Email);
+                                i.putExtra("ScreenName",ScreenName);
+                                System.out.println("ARAHA HAI?"+ScreenName);
                                 System.out.println("=>UID"+message.getUID());
                                 i.putExtra("UID",message.getUID());
                                 System.out.println("Message hai ?"+message.getMessage());

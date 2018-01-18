@@ -79,6 +79,7 @@ public class NetSessionsActivity extends AppCompatActivity {
     private LinearLayout reload;
     private String skills;
     String UID;
+    String ScreenName;
 
     private RelativeLayout HideLayout;
     @Override
@@ -96,6 +97,26 @@ public class NetSessionsActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         logout=(ImageView)findViewById(R.id.logout);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,13 +212,13 @@ public class NetSessionsActivity extends AppCompatActivity {
                     if (extra != null) {
                         System.out.println("HERE =>");
                         if(extra.getString("Activity").equals("GettingStartedActivity")){
-                            TextName.setText("Hello, "+extra.getString("Name"));
+                          //  TextName.setText("Hello, "+extra.getString("Name"));
                             username=extra.getString("Name");
                             emailFacebook=extra.getString("ID");
                         }
                         else if(extra.getString("Activity").equals("MainActivity")){
                             username=extra.getString("NAME");
-                            TextName.setText("Hello, "+extra.getString("NAME"));
+                            //TextName.setText("Hello, "+extra.getString("NAME"));
 
 
 
@@ -266,7 +287,7 @@ public class NetSessionsActivity extends AppCompatActivity {
                             emailFacebook=extra1.getString("ID");
                             username=extra.getString("NAME");
                             System.out.println("Harmain pagal nahi hai Harmain kutta hai");
-                            TextName.setText("Hello, "+extra.getString("NAME"));
+                          //  TextName.setText("Hello, "+extra.getString("NAME"));
                         }
                         else if(extra1.getString("Activity").equals("MainActivityGoogle")){
                             emailFacebook=user.getEmail();
@@ -281,12 +302,12 @@ public class NetSessionsActivity extends AppCompatActivity {
                         else if (extra.getString("Activity").equals("CreateNewNetSessionActivity1")){
                              emailFacebook=extra.getString("ID");
                             username=extra.getString("Username");
-                            TextName.setText("Hello, "+extra.getString("Username"));
+                          //  TextName.setText("Hello, "+extra.getString("Username"));
 
                         }
                         else if (extra.getString("Activity").equals("NetSessionDetailActivity")){
                             emailFacebook=extra.getString("ID");
-                            TextName.setText("Hello, "+extra.getString("Username"));
+                          //  TextName.setText("Hello, "+extra.getString("Username"));
                         }
 
                     }
@@ -294,10 +315,39 @@ public class NetSessionsActivity extends AppCompatActivity {
                         System.out.println("user.getEmail(): "+user.getEmail());
                     final List<MySessionClass> momclasses = new ArrayList<>();
                     final List<MySessionClass> momclasses2 = new ArrayList<>();
+                    Query mHouseDatabaseReference4 =mFirebaseDatabase.getReference().child("UserProfile");
 
-                    System.out.println("AND NOW? "+emailFacebook);
-                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses,Username,1,emailFacebook);
-                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2,Username,2,emailFacebook);
+                    mHouseDatabaseReference4.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                int count1=0;
+                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                    if(issue.child("id").getValue().equals(emailFacebook)){
+                                        System.out.println("ScreenName"+issue.child("screenName").getValue().toString());
+                                        TextName.setText("Hello, "+issue.child("screenName").getValue().toString());
+                                        ScreenName=issue.child("screenName").getValue().toString();
+                                    }
+
+
+                                }
+
+
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                    MySessionAdapter = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses,Username,1,emailFacebook,ScreenName);
+                    MySessionAdapter2 = new MySessionAdapter(NetSessionsActivity.this, R.layout.item_net_sessions, momclasses2,Username,2,emailFacebook,ScreenName);
 
                     System.out.println("here => "+MySessionAdapter);
                     if(mmessageListViewMOM!=null)

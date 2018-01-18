@@ -91,6 +91,7 @@ public class NetSessionDetailActivity extends AppCompatActivity {
             if(extra2.getInt("Flag")==2){
                 MessageEditText.setVisibility(View.GONE);
                 SendMessage.setVisibility(View.GONE);
+                CurrentUser=extra2.getString("ScreenName");
                 username=extra2.getString("Username2");
             };
         }
@@ -337,7 +338,8 @@ public class NetSessionDetailActivity extends AppCompatActivity {
             MessageText.setText(extra.getString("Message"));
             id1=extra.getString("Id");
             UID=extra.getString("UID");
-            CurrentUser=extra.getString("CurrentUser");
+            CurrentUser=extra.getString("ScreenName");
+            System.out.println("Araha hai?"+CurrentUser);
             if(extra.getString("Skills").equals("Baller Batsman and Wicket Keeper")){
                 ball.setVisibility(View.VISIBLE);
                 bat.setVisibility(View.VISIBLE);
